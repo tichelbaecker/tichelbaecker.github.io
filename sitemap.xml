@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/</loc>
+    <lastmod>2021-03-31T13:11:22+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/authors/</loc>
     <lastmod>2021-03-31T13:11:22+08:00</lastmod>
   </url>
@@ -39,11 +44,6 @@
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2021-03-31T13:11:22+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
     <lastmod>2021-03-31T13:11:22+08:00</lastmod>
   </url>
   
