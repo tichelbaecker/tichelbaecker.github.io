@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width">
 
 
-<title>Posts | Thomas Tichelbaecker</title>
+<title>Nested Chapter | Thomas Tichelbaecker</title>
 
 <meta name="generator" content="Hugo Eureka 0.8.3" />
 <link rel="stylesheet" href="/css/eureka.min.css">
@@ -56,7 +56,26 @@
 
 
 <meta name="description"
-  content="Eureka is a elegant and powerful theme for Hugo.">
+  content="Nested chapter of example doc">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"Software",
+      "item":"/software/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"GIS software",
+      "item":"/software/example-doc/"},{
+      "@type": "ListItem",
+      "position": 3 ,
+      "name":"Nested Chapter",
+      "item":"/software/example-doc/nested-chapter/"}]
+}
+</script>
 
 
 
@@ -68,26 +87,28 @@
     "itemListElement":[{
             "@type":"ListItem",
             "position":  1 ,
-            "name": "Digitizing maps and building shapefiles",
-            "description": "\u003cp\u003eWe present a software that digitize geo-coded maps and turns them into shapefiles\u003c/p\u003e",
-            "url": "/posts/gis_software/"
+            "name": "Chapter 1",
+            "description": "Chapter 1 of example doc",
+            "url": "/software/example-doc/nested-chapter/chapter-1/"
+        },{
+            "@type":"ListItem",
+            "position":  2 ,
+            "name": "Chapter 2",
+            "description": "Chapter 2 of example doc",
+            "url": "/software/example-doc/nested-chapter/chapter-2/"
         }
     ]
 }
-</script><meta property="og:title" content="Posts | Thomas Tichelbaecker" />
+</script><meta property="og:title" content="Nested Chapter | Thomas Tichelbaecker" />
 <meta property="og:type" content="website" />
 
 
 
-<meta property="og:url" content="/posts/" />
+<meta property="og:url" content="/software/example-doc/nested-chapter/" />
 
 
 
-
-
-<meta property="og:description" content="Eureka is a elegant and powerful theme for Hugo." />
-
-
+<meta property="og:description" content="Nested chapter of example doc" />
 
 
 
@@ -103,14 +124,14 @@
 
 
 
-<meta property="og:updated_time" content="2021-03-31T13:11:22&#43;08:00" />
+<meta property="og:updated_time" content="2020-10-16T00:00:00&#43;00:00" />
 
 
 
-<meta property="article:section" content="posts" />
+<meta property="article:section" content="software" />
 
 
-<link rel="alternate" type="application/rss+xml" href="/posts/index.xml" title="Thomas Tichelbaecker" />
+<link rel="alternate" type="application/rss+xml" href="/software/example-doc/nested-chapter/index.xml" title="Thomas Tichelbaecker" />
 
 <body class="flex flex-col min-h-screen">
   <header class="fixed flex items-center w-full min-h-16 pl-scrollbar z-50 bg-secondary-bg shadow-sm">
@@ -130,8 +151,8 @@
         class="hidden block md:flex md:flex-grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
         <div class="md:flex md:h-16 text-sm md:flex-grow pb-4 md:pb-0 border-b md:border-b-0">
             <a href="/#home" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">Home</a>
-            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  mr-4">Posts</a>
-            <a href="/software/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">Software</a>
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  mr-4">Posts</a>
+            <a href="/software/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  mr-4">Software</a>
         </div>
 
         <div class="flex">
@@ -183,7 +204,20 @@
     <div class="pl-scrollbar">
       <div class="w-full max-w-screen-xl lg:px-4 xl:px-8 mx-auto">
 <article class="mx-6 my-8">
-    <h1 class="font-bold text-3xl text-primary-text">Posts</h1>
+    <h1 class="font-bold text-3xl text-primary-text">Nested Chapter</h1>
+    
+    <div class="content">
+        <p>This is the root of nested chapter.</p>
+<h2 id="quisque-sit-amet-velit-ac">Quisque sit amet velit ac</h2>
+<p>Mauris consectetur, felis et tempor egestas, nisi metus commodo quam, in tincidunt dui augue ornare tortor. In porttitor ullamcorper tristique. Sed at quam ut enim fringilla iaculis. Vivamus vitae odio ac neque ultricies volutpat non sed risus. Cras eu gravida lacus. Sed convallis interdum accumsan. Proin accumsan neque justo, ut imperdiet enim placerat eu. Duis sollicitudin dignissim maximus. Proin sed efficitur tortor, porttitor porttitor sapien. Integer dapibus aliquam fermentum. Etiam sed mauris accumsan, consectetur sapien volutpat, imperdiet odio. Sed in nisi nulla. Aliquam velit quam, viverra eget eros hendrerit, fermentum auctor purus.</p>
+<h3 id="vestibulum-nec-eros-consequat">Vestibulum nec eros consequat</h3>
+<p>Vestibulum in facilisis diam. Phasellus accumsan ullamcorper faucibus. Integer sagittis ut odio quis maximus. Nulla metus dolor, congue pellentesque lacus ac, lobortis rhoncus urna. Pellentesque neque turpis, vehicula id placerat facilisis, semper in lectus. Sed varius ante mollis nibh rutrum interdum. Mauris vehicula velit ut ligula efficitur, sit amet luctus turpis interdum. Duis diam mauris, ullamcorper id accumsan in, hendrerit vel nibh. Fusce ac tellus dui. Nullam lacinia orci quis quam varius aliquet. Morbi arcu magna, malesuada sit amet porta at, suscipit sit amet tellus. Nam eget ex vitae felis viverra bibendum ac et dolor. Morbi auctor facilisis nisl.</p>
+<p>Donec vulputate egestas risus ultrices placerat. Phasellus at sem orci. Proin ut dolor nisi. Sed interdum erat et nulla tristique rhoncus. Suspendisse potenti. Suspendisse nec orci ut sapien suscipit semper. Sed ut euismod tortor. Vivamus eget odio quis lectus ultrices pretium in ac sem. Vivamus lacinia egestas leo, egestas sollicitudin nulla vulputate id. Vestibulum at lorem et dui elementum euismod at vel neque. Morbi convallis dignissim justo, non sollicitudin massa aliquam non. Vivamus tristique vel massa sed rutrum. Morbi odio nunc, bibendum non tellus eget, interdum porta massa. Suspendisse sit amet eros ut lorem suscipit viverra vel sed purus.</p>
+<h2 id="pellentesque-sed-augue-quis-erat">Pellentesque sed augue quis erat</h2>
+<p>Etiam ut tempus nunc. Donec vel ornare eros, quis viverra sem. In arcu erat, elementum vitae eros molestie, porta interdum arcu. Donec eleifend eget augue eu aliquam. Duis sed ex in nibh dictum pretium at vitae massa. Praesent a elementum orci, id dictum orci. Donec tempor malesuada est. Aenean maximus, sem tristique porta pellentesque, massa ex euismod sapien, nec consectetur augue odio a mauris. Aliquam pulvinar leo id commodo commodo. Vestibulum congue pellentesque nibh, vitae scelerisque felis dignissim et. Phasellus in finibus ipsum. Suspendisse ultrices nisl augue, ut aliquet enim commodo vitae. Pellentesque eu neque et massa tincidunt pretium eu eu lorem. Suspendisse urna turpis, accumsan posuere leo eu, porta imperdiet quam. Fusce vel mi at lectus sodales eleifend id sit amet orci.</p>
+<h2 id="sed-sed-sapien-vitae-mauris-pellentesque">Sed sed sapien vitae mauris pellentesque</h2>
+<p>Donec eget dui euismod, mattis tortor a, suscipit nisi. Quisque id ullamcorper mi, vulputate tristique lacus. Nulla nulla felis, convallis sit amet nibh vitae, luctus viverra velit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur consectetur, felis eget sagittis faucibus, sapien mauris dignissim justo, vel suscipit velit leo placerat dolor. Mauris accumsan ligula ipsum, et aliquam nunc congue a. Aliquam faucibus non mauris at commodo. Maecenas laoreet elit aliquet consectetur rhoncus. Etiam dictum mi augue, venenatis dignissim lacus pharetra et. Proin sit amet lectus id mauris accumsan venenatis ut sit amet lorem. Etiam auctor commodo elit, molestie vestibulum quam auctor ac. Vestibulum rhoncus leo malesuada mauris faucibus, pulvinar venenatis odio rutrum. Sed sit amet consectetur velit. Cras facilisis ligula vel ligula sodales, id luctus sapien suscipit.</p>
+    </div>
     
 </article>
 <div class="bg-secondary-bg rounded px-6">
@@ -194,32 +228,58 @@
   
   <div class="w-full ">
     <div class="mb-4">
-  <a href="/posts/gis_software/" class="font-bold text-xl hover:text-eureka">Digitizing maps and building shapefiles</a>
+  <a href="/software/example-doc/nested-chapter/chapter-1/" class="font-bold text-xl hover:text-eureka">Chapter 1</a>
 </div>
 <div class="content">
   
-    We present a software that digitize geo-coded maps and turns them into shapefiles
-
+    Chapter 1 of example doc
   
 </div>
 
 <div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
     <div class="mr-6 my-2">
         <i class="fas fa-calendar mr-1"></i>
-        <span>2021-03-31</span>
+        <span>2020-10-16</span>
     </div>
     <div class="mr-6 my-2">
         <i class="fas fa-clock mr-1"></i>
-        <span>1 min read</span>
+        <span>3 min read</span>
     </div>
     
     
+
+    
+</div>
+
+  </div>
+
+  
+</div>
+  </div>
+  
+  <div class="py-6">
+    <div class="flex flex-col-reverse lg:flex-row justify-between">
+  
+  <div class="w-full ">
+    <div class="mb-4">
+  <a href="/software/example-doc/nested-chapter/chapter-2/" class="font-bold text-xl hover:text-eureka">Chapter 2</a>
+</div>
+<div class="content">
+  
+    Chapter 2 of example doc
+  
+</div>
+
+<div class="flex flex-wrap flex-row items-center mt-2 text-tertiary-text">
     <div class="mr-6 my-2">
-        <i class="fas fa-folder mr-1"></i>
-        
-        <a href="/categories/gis/" class="hover:text-eureka">GIS</a>
-        
+        <i class="fas fa-calendar mr-1"></i>
+        <span>2020-10-16</span>
     </div>
+    <div class="mr-6 my-2">
+        <i class="fas fa-clock mr-1"></i>
+        <span>3 min read</span>
+    </div>
+    
     
 
     

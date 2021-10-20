@@ -8,7 +8,22 @@
   </url>
   
   <url>
-    <loc>/posts/diagram-support/</loc>
+    <loc>/categories/</loc>
+    <lastmod>2021-03-31T13:11:22+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/gis_software/</loc>
+    <lastmod>2021-03-31T13:11:22+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/gis/</loc>
+    <lastmod>2021-03-31T13:11:22+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/gis/</loc>
     <lastmod>2021-03-31T13:11:22+08:00</lastmod>
   </url>
   
@@ -18,143 +33,66 @@
   </url>
   
   <url>
+    <loc>/tags/software/</loc>
+    <lastmod>2021-03-31T13:11:22+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2021-03-31T13:11:22+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/</loc>
     <lastmod>2021-03-31T13:11:22+08:00</lastmod>
   </url>
   
   <url>
-    <loc>/authors/example-author/</loc>
+    <loc>/authors/thomas-tichelbaecker/</loc>
     <lastmod>2021-03-31T13:11:22+08:00</lastmod>
   </url>
   
   <url>
-    <loc>/posts/math-support/</loc>
-    <lastmod>2020-11-20T22:52:56+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/docs/example-doc/chapter-1/</loc>
+    <loc>/software/example-doc/chapter-1/</loc>
     <lastmod>2020-10-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/example-doc/nested-chapter/chapter-1/</loc>
+    <loc>/software/example-doc/nested-chapter/chapter-1/</loc>
     <lastmod>2020-10-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/example-doc/chapter-2/</loc>
+    <loc>/software/example-doc/chapter-2/</loc>
     <lastmod>2020-10-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/example-doc/nested-chapter/chapter-2/</loc>
+    <loc>/software/example-doc/nested-chapter/chapter-2/</loc>
     <lastmod>2020-10-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/</loc>
+    <loc>/software/example-doc/</loc>
     <lastmod>2020-10-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/example-doc/</loc>
+    <loc>/software/example-doc/nested-chapter/</loc>
     <lastmod>2020-10-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/example-doc/nested-chapter/</loc>
+    <loc>/software/</loc>
     <lastmod>2020-10-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/posts/featured-image/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/image/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/series/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/themes/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/series/themes-guide/</loc>
-    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/css/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/html/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/markdown/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/posts/markdown-syntax/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/syntax/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/themes/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/authors/hugo-authors/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/posts/placeholder-text/</loc>
-    <lastmod>2019-03-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/text/</loc>
-    <lastmod>2019-03-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/emoji/</loc>
-    <lastmod>2019-03-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/posts/emoji-support/</loc>
-    <lastmod>2019-03-05T00:00:00+00:00</lastmod>
   </url>
   
 </urlset>
