@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>Posts | </title>
+<title>Search | </title>
 
 <meta name="generator" content="Hugo Eureka 0.9.3" />
 <link rel="stylesheet" href="/css/eureka.min.cec0211cae9857f0b146c404d91cb1cde5dd50484f01dc514b9a08a1942aff578a120947791e33db0b831e6b817cc7e1.css">
@@ -42,43 +42,54 @@
 
 
 
-
+<meta name="robots" content="noindex" />
 
 
 <meta name="description"
   content="">
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"",
+      "item":"/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"Search",
+      "item":"/search/"}]
+}
+</script>
 
 
 
 <script type="application/ld+json">
 {
-    "@context":"https://schema.org",
-    "@type":"ItemList",
-    "itemListElement":[{
-            "@type":"ListItem",
-            "position":  1 ,
-            "name": "Digitizing maps and building shapefiles",
-            "description": "\u003cp\u003eComing soon\u003c/p\u003e",
-            "url": "/posts/gis_software/"
-        }
-    ]
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/search/"
+    },
+    "headline": "Search | ","publisher": {
+        "@type": "Person",
+        "name": "",
+        },
+    "description": ""
 }
-</script><meta property="og:title" content="Posts | " />
-<meta property="og:type" content="website" />
+</script><meta property="og:title" content="Search | " />
+<meta property="og:type" content="article" />
 
 
 
-<meta property="og:url" content="/posts/" />
-
-
-
-
+<meta property="og:url" content="/search/" />
 
 
 
 
-
+<meta property="og:description" content="" />
 
 
 
@@ -87,14 +98,17 @@
 
 
 
-<meta property="og:updated_time" content="2021-03-31T13:11:22&#43;08:00" />
 
 
 
-<meta property="article:section" content="posts" />
 
 
-<link rel="alternate" type="application/rss+xml" href="/posts/index.xml" title="" />
+
+
+<meta property="article:section" content="" />
+
+
+<link rel="alternate" type="application/json" href="/search/index.json" title="" />
 
 
   <body class="flex min-h-screen flex-col">
@@ -166,70 +180,19 @@
     <main class="grow pt-16">
         <div class="pl-scrollbar">
           <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
-  <article class="prose mx-6 my-8">
-  <h1>Posts</h1>
-  
-</article>
 
-  <div class="bg-secondary-bg rounded px-6">
-    <div class="overflow-hidden divide-y">
-  
-  <div class="py-6">
-    <div class="flex flex-col-reverse lg:flex-row justify-between">
-  
-  <div class="w-full ">
-    <div class="prose">
-  <a href="/posts/gis_software/" class="no-underline">
-    <h3 class="mt-0">Digitizing maps and building shapefiles</h3>
-  </a>
-  
-    Coming soon
-
-  
-
-  
-    <div
-  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
->
-  <div class="me-6 my-2">
-    <i class="fas fa-calendar me-1"></i>
-    <span
-      >2021-03-31</span
-    >
-  </div>
-  <div class="me-6 my-2">
-    <i class="fas fa-clock me-1"></i>
-    <span>1 min read</span>
-  </div>
-
-  
-    <div class="me-6 my-2">
-      <i class="fas fa-folder me-1"></i>
-      
-        <a href="/categories/gis/" class="hover:text-eureka"
-          >GIS</a
-        >
-      
-    </div>
-  
-
-  
+<script defer type="text/javascript" src="/js/fuse.d695ba8d008b6a75e758268422ab0b8c123b0ca8501e15d7c8cf165b2094899aa48703b2e496dc46b7ef54c096793b6b.js"></script>
+<div id="search-wrapper" class="bg-secondary-bg rounded px-6 py-8 lg:mt-12">
+  <form action="/search/" class="flex">   
+    <input type="text" id="search-input" name="q" class="bg-primary-bg text-primary-text rounded-lg w-full pl-4" placeholder="Search" required>
+    <button type="submit" class="p-2 ml-2 text-primary-text bg-primary-bg rounded-lg">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+    </button>
+  </form>
+  <div id="search-results" class="prose py-4"></div>
 </div>
-
-  
-</div>
-
-  </div>
-
-  
-</div>
-  </div>
-  
-</div>
-
-
-  </div>
-  
 
           </div>
         </div>
