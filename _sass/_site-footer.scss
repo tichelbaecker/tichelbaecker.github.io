@@ -1,0 +1,33 @@
+/* ==========================================================================
+   8. Site Footer
+   ========================================================================== */
+
+.site-footer {
+  padding: 1.66667em 0;
+}
+
+.offsite-links {
+  margin-bottom: 1.11111em;
+  a {
+    color: _palette(primary);
+    display: inline-block;
+    font-size: 18px;
+    margin-right: 15px;
+    text-decoration: none;
+    &:hover{
+      color: _palette(accent);
+    }
+  }
+}
+
+.site-info {
+  font-size: 14px;
+}
+
+@media only screen and (min-width: 481px) {
+  .footer-bottom {
+    padding-right: 60px;
+    position: relative;
+  }
+
+}
