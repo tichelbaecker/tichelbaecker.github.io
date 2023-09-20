@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Thomas Tichelbaecker</title>
-        <description>This is the personal homepage of Thomas Tichelbaecker. I am a PhD candidate at Princeton Politics. I work on political parties and polarization in advanced democracies.</description>
+        <description>This is the personal homepage of Thomas Tichelbaecker. I am a PhD candidate at in Politics Department at Princeton University. I work on political parties and polarization in advanced democracies.</description>
         <link>https://tichelbaecker.com/</link>
         <atom:link href="https://tichelbaecker.com/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 19 Sep 2023 23:19:47 -0400</pubDate>
-        <lastBuildDate>Tue, 19 Sep 2023 23:19:47 -0400</lastBuildDate>
+        <pubDate>Tue, 19 Sep 2023 23:31:13 -0400</pubDate>
+        <lastBuildDate>Tue, 19 Sep 2023 23:31:13 -0400</lastBuildDate>
         <generator>Jekyll v4.0.1</generator>
         
             <item>
