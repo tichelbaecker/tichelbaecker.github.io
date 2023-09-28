@@ -5,13 +5,8 @@
         <description>This is the personal homepage of Thomas Tichelbaecker. I am a PhD candidate at in Politics Department at Princeton University. I work on political parties and polarization in advanced democracies.</description>
         <link>https://tichelbaecker.com/</link>
         <atom:link href="https://tichelbaecker.com/feed.xml" rel="self" type="application/rss+xml"/>
-<<<<<<< HEAD
         <pubDate>Thu, 28 Sep 2023 16:49:49 -0400</pubDate>
         <lastBuildDate>Thu, 28 Sep 2023 16:49:49 -0400</lastBuildDate>
-=======
-        <pubDate>Wed, 20 Sep 2023 12:10:10 -0400</pubDate>
-        <lastBuildDate>Wed, 20 Sep 2023 12:10:10 -0400</lastBuildDate>
->>>>>>> parent of a16d88b (Added parenthesis)
         <generator>Jekyll v4.0.1</generator>
         
             <item>
