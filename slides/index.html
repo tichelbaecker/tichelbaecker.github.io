@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cross-Ideological Vote Splitting</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --tugreen: rgb(0, 95, 80);
+    --tugreen-light: rgba(0, 95, 80, 0.08);
+    --tugreen-mid: rgba(0, 95, 80, 0.15);
+    --dark: #1a1a2e;
+    --gray: #555;
+    --light-gray: #e8e8e8;
+    --white: #fff;
+    --slide-w: 960px;
+    --slide-h: 700px;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: #2c2c3a;
+    color: var(--dark);
+    overflow: hidden;
+  }
+
+  .deck {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slide {
+    position: absolute;
+    width: var(--slide-w);
+    height: var(--slide-h);
+    background: var(--white);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    overflow: hidden;
+  }
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* === Header === */
+  .slide-header {
+    background: var(--tugreen);
+    color: var(--white);
+    padding: 12px 32px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 50px;
+    flex-shrink: 0;
+  }
+  .slide-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .slide-header .logo-area {
+    text-align: right;
+  }
+  .slide-header .logo-area img {
+    height: 32px;
+    opacity: 0.9;
+  }
+
+  /* === Section Nav Bar (replaces subheader) === */
+  .section-nav {
+    display: flex;
+    flex-shrink: 0;
+    background: var(--tugreen-mid);
+    min-height: 22px;
+  }
+  .section-nav .sn-item {
+    flex: 1;
+    text-align: center;
+    padding: 3px 4px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: rgba(0, 95, 80, 0.45);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border-right: 1px solid rgba(0, 95, 80, 0.1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .section-nav .sn-item:last-child { border-right: none; }
+  .section-nav .sn-item.sn-done {
+    color: var(--tugreen);
+    font-weight: 600;
+  }
+  .section-nav .sn-item.sn-current {
+    background: var(--tugreen);
+    color: var(--white);
+    font-weight: 700;
+  }
+  .section-nav .sn-item:hover:not(.sn-current) {
+    background: rgba(0, 95, 80, 0.08);
+  }
+
+  /* === Body === */
+  .slide-body {
+    flex: 1;
+    padding: 18px 32px;
+    overflow-y: auto;
+    font-size: 19px;
+    line-height: 1.55;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  /* === Footer === */
+  .slide-footer {
+    background: var(--tugreen);
+    color: rgba(255,255,255,0.85);
+    display: flex;
+    font-size: 12px;
+    min-height: 22px;
+    flex-shrink: 0;
+  }
+  .slide-footer > div {
+    flex: 1;
+    padding: 3px 12px;
+    display: flex;
+    align-items: center;
+  }
+  .slide-footer .f-author { justify-content: flex-start; }
+  .slide-footer .f-title  { justify-content: center; }
+  .slide-footer .f-page   { justify-content: flex-end; }
+
+  /* === Title Slide === */
+  .slide.title-slide .slide-body {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+  }
+  .slide.title-slide .slide-body h1 {
+    font-size: 30px;
+    color: var(--tugreen);
+    margin-bottom: 12px;
+    line-height: 1.35;
+  }
+  .slide.title-slide .slide-body .subtitle {
+    font-size: 20px;
+    color: var(--gray);
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+  .slide.title-slide .slide-body .authors {
+    font-size: 19px;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+  .slide.title-slide .slide-body .date {
+    font-size: 13px;
+    color: var(--gray);
+  }
+  .slide.title-slide .slide-header {
+    min-height: 8px;
+    padding: 4px;
+  }
+  .slide.title-slide .slide-header h2 { display: none; }
+
+  /* === Section Divider === */
+  .slide.section-slide .slide-body {
+    align-items: center;
+    justify-content: center;
+    background: var(--tugreen);
+  }
+  .slide.section-slide .slide-body h1 {
+    color: var(--white);
+    font-size: 34px;
+    text-align: center;
+  }
+
+  /* === Content === */
+  .slide-body h3 {
+    color: var(--tugreen);
+    font-size: 21px;
+    margin: 12px 0 6px;
+    flex-shrink: 0;
+  }
+  .slide-body p { margin-bottom: 8px; flex-shrink: 0; }
+  .slide-body ul, .slide-body ol { margin: 6px 0 10px 24px; flex-shrink: 0; }
+  .slide-body li { margin-bottom: 4px; }
+  .slide-body li li { font-size: 17px; color: var(--gray); }
+
+  .slide-body .highlight {
+    background: var(--tugreen-light);
+    border-left: 3px solid var(--tugreen);
+    padding: 8px 14px;
+    margin: 10px 0;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+
+  /* === Images: fill available space === */
+  .slide-body img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+  .slide-body .img-container {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .slide-body .img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .slide-body .img-note {
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 4px;
+    text-align: left;
+    flex-shrink: 0;
+  }
+
+  /* === Table === */
+  .slide-body table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    margin: 8px 0;
+  }
+  .slide-body th {
+    background: var(--tugreen);
+    color: var(--white);
+    padding: 6px 8px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .slide-body td {
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--light-gray);
+    font-size: 15.5px;
+  }
+  .slide-body tr:nth-child(even) td {
+    background: var(--tugreen-light);
+  }
+
+  .formula {
+    text-align: center;
+    font-size: 23px;
+    margin: 14px 0;
+    font-family: 'Times New Roman', serif;
+    font-style: italic;
+  }
+  .cite { color: var(--gray); font-size: 16px; }
+
+  /* === Appendix links === */
+  .app-link {
+    display: inline-block;
+    font-size: 10px;
+    color: var(--tugreen);
+    opacity: 0.7;
+    cursor: pointer;
+    text-decoration: none;
+    border-bottom: 1px dotted var(--tugreen);
+    transition: opacity 0.2s;
+  }
+  .app-link:hover { opacity: 1; }
+  .app-links-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+
+  /* === Stacked image reveal (blank → full) === */
+  .img-reveal {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .img-reveal img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .img-reveal .img-full {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .img-reveal .img-full img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .img-reveal .img-full[data-step] {
+    transform: none;
+  }
+
+  /* === Fragment / Build system === */
+  [data-step] {
+    opacity: 0;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    transform: translateY(6px);
+  }
+  [data-step="0"] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  [data-step].visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  [data-step].dimmed {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+
+  /* Annotation callouts for image slides */
+  .annotation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .annotation {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 15px;
+    line-height: 1.4;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  .annotation .ann-marker {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+  }
+
+  /* Ballot overlay via inline SVG */
+  .ballot-wrap {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .ballot-wrap svg {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .ballot-wrap svg .ov-layer {
+    transition: opacity 0.35s ease;
+  }
+  .ballot-wrap svg .ov-layer[data-step] {
+    opacity: 0;
+  }
+  .ballot-wrap svg .ov-layer[data-step].visible {
+    opacity: 1;
+  }
+
+  .nav-hint {
+    position: fixed;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.4);
+    font-size: 11px;
+    z-index: 100;
+  }
+
+  @media (max-width: 1000px) {
+    .slide { width: 100vw; height: 100vh; }
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- SLIDE 1: TITLE -->
+<div class="slide title-slide active" data-section="">
+  <div class="slide-header"><h2></h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body">
+    <h1>Cross-Ideological Vote Splitting</h1>
+    <div class="subtitle" style="color: #6a7a78;">Measuring Political Polarization with Electoral Data</div>
+    <div class="authors">Thomas Tichelbaecker &middot; Lea Portmann</div>
+    <div class="date">2026</div>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 2: AGENDA -->
+<div class="slide" data-section="Overview">
+  <div class="slide-header"><h2>Agenda</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body">
+    <ol style="font-size:21px; margin-top:24px; line-height:2.2;">
+      <li>Motivation &amp; Contribution</li>
+      <li>Cross-Ideological Vote Splitting &mdash; Concept</li>
+      <li>Institutional Context: Swiss Elections</li>
+      <li>Data &amp; Measurement</li>
+      <li>Results
+        <ul style="margin-top:4px;">
+          <li>Cross-ideological vote splitting over time</li>
+          <li>Benchmarking against affective polarization</li>
+          <li>Benchmarking against electoral-system polarization</li>
+          <li>Correlates</li>
+        </ul>
+      </li>
+      <li>Conclusion</li>
+    </ol>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 3: MOTIVATION -->
+<div class="slide" data-section="Motivation" data-dim-previous>
+  <div class="slide-header"><h2>Motivation</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body">
+    <h3 data-step="0">Survey-Based Measures</h3>
+    <ul data-step="0">
+      <li>Research on political polarization has flourished &mdash; but most work focuses on <strong>attitudes</strong></li>
+      <li>Behavioral consequences of polarized attitudes remain unclear <span class="cite">(Broockman et al. 2022; Lelkes &amp; Westwood 2017)</span></li>
+      <li>No observable behavior; may reflect stereotypes rather than lived interactions <span class="cite">(Orr &amp; Huber 2020)</span></li>
+      <li>Cannot be applied to fine-grained geographic units</li>
+      <li>Implicit linearity assumption <span class="cite">(Janssen &amp; Turkenburg 2024)</span></li>
+    </ul>
+    <h3 data-step="1">Electoral-System Polarization</h3>
+    <ul data-step="1">
+      <li>Scales parties' positions weighted by vote shares <span class="cite">(Dalton 2008)</span></li>
+      <li>Allows fine-grained geographic analysis &mdash; but lacks dyadic structure</li>
+      <li>Cannot distinguish voter behavior from party positioning</li>
+    </ul>
+    <div class="highlight" data-step="2">
+      <strong>Gap:</strong> Existing approaches either capture attitudes without observable behavior or electoral outcomes without direct cross-partisan interaction.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 4: CONTRIBUTION -->
+<div class="slide" data-section="Motivation" data-dim-previous>
+  <div class="slide-header"><h2>Contribution</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body">
+    <h3 data-step="0">What We Do</h3>
+    <p data-step="0">We introduce <strong>cross-ideological vote splitting</strong> as a new behavioral measure of political polarization in open-list elections.</p>
+    <h3 data-step="1">Three Contributions</h3>
+    <ol data-step="1">
+      <li><strong>New measurement approach</strong> &mdash; based on revealed voting behavior rather than self-reported attitudes</li>
+      <li><strong>Fine-grained geographic context</strong> &mdash; polarization at the municipality level, tracked over time (2007&ndash;2023)</li>
+      <li><strong>Contextual drivers</strong> &mdash; linking behavioral measure to municipal-level variables</li>
+    </ol>
+    <h3 data-step="2">Key Facts</h3>
+    <ul data-step="2">
+      <li>~50% of all ballots in 2023 Swiss national election were modified</li>
+      <li>Roughly 12 out of 100 voters cast at least one vote for an ideologically distant candidate</li>
+    </ul>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 5: SECTION DIVIDER -->
+<div class="slide section-slide" data-section="">
+  <div class="slide-header" style="background:transparent;min-height:4px;padding:2px;"></div>
+  <div class="slide-body">
+    <h1>Cross-Ideological Vote Splitting<br><span style="font-size:23px;font-weight:400;opacity:0.85;">Concept &amp; Measurement</span></h1>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 6: CONCEPT -->
+<div class="slide" data-section="Concept">
+  <div class="slide-header"><h2>How It Works</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body" style="padding:10px 24px;">
+    <div class="ballot-wrap">
+      <svg viewBox="0 0 960 540" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <image href="plots/ballot_plain.png" width="960" height="540" preserveAspectRatio="none"/>
+        <!-- Step 1: Red header box (Liste Nr. 8 EDU...) -->
+        <g class="ov-layer" data-step="1">
+          <rect x="141" y="75" width="552" height="60" fill="none" stroke="#c0392b" stroke-width="2.5" rx="2"/>
+          <line x1="693" y1="105" x2="850" y2="105" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="855" y="89" fill="#c0392b" font-size="13" font-weight="600" font-family="Helvetica Neue, Helvetica, sans-serif">Ballot party identifier:</text>
+          <text x="855" y="104" fill="#c0392b" font-size="13" font-weight="600" font-family="Helvetica Neue, Helvetica, sans-serif">Used to identify</text>
+          <text x="855" y="119" fill="#c0392b" font-size="13" font-weight="600" font-family="Helvetica Neue, Helvetica, sans-serif">inparty of voter</text>
+        </g>
+        <!-- Step 2: Orange inparty box (all candidate rows) -->
+        <g class="ov-layer" data-step="2">
+          <rect x="141" y="140" width="607" height="260" fill="none" stroke="#e67e22" stroke-width="2.5" rx="2"/>
+          <rect x="141" y="427" width="607" height="22" fill="none" stroke="#e67e22" stroke-width="2.5" rx="2"/>
+          <line x1="748" y1="274" x2="850" y2="274" stroke="#e67e22" stroke-width="1.5"/>
+          <line x1="748" y1="438" x2="850" y2="284" stroke="#e67e22" stroke-width="1.5"/>
+          <text x="855" y="268" fill="#e67e22" font-size="13" font-weight="600" font-family="Helvetica Neue, Helvetica, sans-serif">Votes for inparty</text>
+          <text x="855" y="283" fill="#e67e22" font-size="13" font-weight="600" font-family="Helvetica Neue, Helvetica, sans-serif">candidates</text>
+        </g>
+        <!-- Step 3: Blue outparty box (Müller row) -->
+        <g class="ov-layer" data-step="3">
+          <rect x="141" y="453" width="607" height="22" fill="none" stroke="#2980b9" stroke-width="2.5" rx="2"/>
+          <line x1="748" y1="460" x2="850" y2="460" stroke="#2980b9" stroke-width="1.5"/>
+          <text x="855" y="455" fill="#2980b9" font-size="13" font-weight="600" font-family="Helvetica Neue, Helvetica, sans-serif">Votes for outparty</text>
+          <text x="855" y="467" fill="#2980b9" font-size="13" font-weight="600" font-family="Helvetica Neue, Helvetica, sans-serif">candidates</text>
+        </g>
+      </svg>
+    </div>
+    <div class="annotation-list">
+      <div class="annotation" data-step="1">
+        <span class="ann-marker" style="background:#c0392b;">1</span>
+        <span>The <strong>ballot header</strong> identifies this as an <strong style="color:#c0392b;">EDU voter</strong> (right-wing party) &mdash; this is the voter's <em>in-party</em>.</span>
+      </div>
+      <div class="annotation" data-step="2">
+        <span class="ann-marker" style="background:#e67e22;">2</span>
+        <span>The <strong style="color:#e67e22;">orange rows</strong> show the original EDU candidates &mdash; votes that stay within the party.</span>
+      </div>
+      <div class="annotation" data-step="3">
+        <span class="ann-marker" style="background:#2980b9;">3</span>
+        <span>The voter crossed out an EDU candidate and wrote in <strong style="color:#2980b9;">M&uuml;ller, Miriam (SP)</strong> &mdash; a <em>cross-ideological vote</em> from right to left.</span>
+      </div>
+      <div class="annotation" data-step="4">
+        <span class="ann-marker" style="background:var(--tugreen);">&#10140;</span>
+        <span>Our measure aggregates these cross-ideological flows across all voters in a municipality.</span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 7: TABLE -->
+<div class="slide" data-section="Concept">
+  <div class="slide-header"><h2>Comparison of Polarization Measures</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Survey-based Measures</th>
+          <th>Electoral Returns</th>
+          <th style="background:#006050;">Cross-Ideological Vote Splitting</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Primary data source</strong></td><td>Surveys</td><td>Aggregate election results</td><td>Aggregate election results</td></tr>
+        <tr><td><strong>Behavioral vs. attitudinal</strong></td><td>Attitudinal</td><td>Behavioral</td><td><strong>Behavioral</strong></td></tr>
+        <tr><td><strong>Dyadic structure</strong></td><td>Yes</td><td>No</td><td><strong>Yes</strong></td></tr>
+        <tr><td><strong>Geographic resolution</strong></td><td>Low</td><td>High</td><td><strong>High</strong></td></tr>
+        <tr><td><strong>Applicable to fine-grained units</strong></td><td>Limited</td><td>Yes</td><td><strong>Yes</strong></td></tr>
+        <tr><td><strong>Separates voters from parties</strong></td><td>Yes</td><td>No</td><td><strong>Yes</strong></td></tr>
+        <tr><td><strong>Captures costly behavior</strong></td><td>No</td><td>Limited</td><td><strong>Yes</strong></td></tr>
+        <tr><td><strong>Temporal coverage</strong></td><td>Episodic</td><td>High</td><td><strong>High</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="highlight" style="margin-top:10px;" data-step="1">
+      Cross-ideological vote splitting combines the <strong>dyadic structure</strong> of survey measures with the <strong>behavioral basis</strong> and <strong>geographic granularity</strong> of electoral-return measures.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 8: FORMULA -->
+<div class="slide" data-section="Measurement" data-dim-previous>
+  <div class="slide-header"><h2>Constructing the Measure</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body">
+    <h3 data-step="0">Data</h3>
+    <ul data-step="0">
+      <li>Municipality-level results from Swiss national elections (2007&ndash;2023)</li>
+      <li>Source: Swiss Federal Statistical Office (<em>Bundesamt f&uuml;r Statistik</em>)</li>
+      <li>Data link preference votes for candidates to the party ballot from which they originate</li>
+    </ul>
+    <h3 data-step="1">Ideological Classification</h3>
+    <ul data-step="1">
+      <li>Parties classified into three blocs: <strong>left</strong>, <strong>center</strong>, <strong>right</strong></li>
+      <li>Following Auer et al. (2025)</li>
+    </ul>
+    <h3 data-step="2" data-no-dim>Cross-Ideological Vote Splitting Index</h3>
+    <div class="formula" style="font-size:28px; margin:18px 0;" data-step="2" data-no-dim>
+      <span style="color:var(--tugreen);">CI<sub>i</sub></span><!--
+      --><span data-step="3" data-no-dim> = </span><!--
+      --><span data-step="3" data-no-dim style="color:#c0392b;">E<sub>i</sub></span><!--
+      --><span data-step="4" data-no-dim> / </span><!--
+      --><span data-step="4" data-no-dim style="color:#2980b9;">V<sub>i</sub></span>
+    </div>
+    <p style="text-align:center; font-size:17px;" data-step="2" data-no-dim>
+      <strong style="color:var(--tugreen);">CI<sub>i</sub></strong> = cross-ideological vote splitting index in municipality <em>i</em>
+    </p>
+    <p style="text-align:center; font-size:17px;" data-step="3" data-no-dim>
+      <strong style="color:#c0392b;">E<sub>i</sub></strong> = external preference votes for ideologically <strong>distant</strong> parties in municipality <em>i</em>
+    </p>
+    <p style="text-align:center; font-size:17px;" data-step="4" data-no-dim>
+      <strong style="color:#2980b9;">V<sub>i</sub></strong> = total number of votes in municipality <em>i</em>
+    </p>
+    <p style="font-size:17px;" data-step="5" data-no-dim>Calculated overall and separately for right-wing, left-wing, and centrist party voters.</p>
+    <span class="app-link" onclick="event.stopPropagation(); goToSlideId('app-party-class')">Appendix: Party classification</span>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 9: SECTION DIVIDER -->
+<div class="slide section-slide" data-section="">
+  <div class="slide-header" style="background:transparent;min-height:4px;padding:2px;"></div>
+  <div class="slide-body">
+    <h1>Institutional Context<br><span style="font-size:23px;font-weight:400;opacity:0.85;">Swiss National Elections</span></h1>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 10: CONTEXT (hidden)
+<div class="slide" data-section="Context">
+  <div class="slide-header"><h2>Swiss Electoral System</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body">
+    <h3>Free-List Proportional Representation</h3>
+    <ul>
+      <li>Voters receive a set of <strong>party ballots</strong>, each listing candidates</li>
+      <li>Multiple ways to express preferences:
+        <ul>
+          <li>Submit a party ballot unchanged</li>
+          <li>Modify a party ballot (strike out / add candidates)</li>
+          <li>Use a blank ballot to write in any candidates</li>
+        </ul>
+      </li>
+      <li>Ballot header identifies the voter's <strong>in-party</strong></li>
+    </ul>
+    <h3 data-step="1">Why Switzerland?</h3>
+    <ul data-step="1">
+      <li>~50% of ballots are modified &rarr; active use of preference voting</li>
+      <li>Cross-ideological vote flows account for ~10% of all cross-party flows</li>
+      <li>Fine-grained municipal-level data publicly available</li>
+      <li>Multi-party system spanning the full ideological spectrum</li>
+    </ul>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+-->
+
+<!-- SLIDE 11: VOTE FLOWS -->
+<div class="slide" data-section="Context">
+  <div class="slide-header"><h2>Vote Flows Across Parties</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body" style="padding:10px 20px;">
+    <div class="img-reveal">
+      <img src="plots/voter_flows_alluvial_blank.svg" alt="Vote flows alluvial plot (axes)">
+      <div class="img-full" data-step="1"><img src="plots/voter_flows_alluvial.svg" alt="Vote flows alluvial plot"></div>
+    </div>
+    <p class="img-note" data-step="1"><strong>Note:</strong> Panel A: colored by receiving party. Panel B: gray = within-camp, light blue = center-left/right, red = cross-ideological (left&harr;right). We focus on the red flows.
+    <span class="app-link" onclick="event.stopPropagation(); goToSlideId('app-flows-year')">Appendix: Year-by-year flows</span></p>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 12: SECTION DIVIDER -->
+<div class="slide section-slide" data-section="">
+  <div class="slide-header" style="background:transparent;min-height:4px;padding:2px;"></div>
+  <div class="slide-body"><h1>Results</h1></div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 13: OVER TIME -->
+<div class="slide" data-section="Results">
+  <div class="slide-header"><h2>Cross-Ideological Vote Splitting Over Time</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body" style="padding:10px 20px;">
+    <div class="img-reveal">
+      <img src="plots/civs_over_time_blank.svg" alt="CIVS over time (axes)">
+      <div class="img-full" data-step="1"><img src="plots/civs_over_time_overall.svg" alt="CIVS over time (overall)"></div>
+      <div class="img-full" data-step="2"><img src="plots/civs_over_time.svg" alt="CIVS over time (all lines)"></div>
+    </div>
+    <ul style="font-size:15px; margin-top:6px;" data-step="3">
+      <li>Cross-ideological vote splitting declined from <strong>1.7%</strong> (2007) to <strong>0.9%</strong> (2023)</li>
+      <li>Particularly pronounced among <strong>left-wing voters</strong>: 2.8% &rarr; 1.4%</li>
+    </ul>
+    <div class="app-links-row" data-step="3">
+      <span class="app-link" onclick="event.stopPropagation(); goToSlideId('app-distributions')">Appendix: CIVS distributions</span>
+      <span class="app-link" onclick="event.stopPropagation(); goToSlideId('app-left-vs-right')">Appendix: Left vs. right voters</span>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 14: AFFECTIVE POLARIZATION -->
+<div class="slide" data-section="Results">
+  <div class="slide-header"><h2>Benchmarking: Affective Polarization</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body" style="padding:10px 20px;">
+    <div class="img-reveal">
+      <img src="plots/ap_scatter_blank.svg" alt="AP scatter (axes)">
+      <div class="img-full" data-step="1"><img src="plots/ap_scatter.svg" alt="AP scatter"></div>
+    </div>
+    <ul style="font-size:15px; margin-top:6px;" data-step="2">
+      <li>Positive association between outparty feeling (CSES data) and external preference vote share</li>
+      <li>1 SD increase in outparty feeling &harr; 0.97 SD increase in external preference vote share</li>
+    </ul>
+    <span class="app-link" onclick="event.stopPropagation(); goToSlideId('app-reg-validation')" data-step="2">Appendix: Regression table</span>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 15: CHES -->
+<div class="slide" data-section="Results">
+  <div class="slide-header"><h2>Benchmarking: Electoral-System Polarization</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body" style="padding:10px 20px;">
+    <div class="img-reveal">
+      <img src="plots/civs_ches_scatter_blank.svg" alt="CIVS CHES scatter (axes)">
+      <div class="img-full" data-step="1"><img src="plots/civs_ches_scatter.svg" alt="CIVS CHES scatter"></div>
+    </div>
+    <ul style="font-size:15px; margin-top:6px;" data-step="2">
+      <li>Three dimensions: general left&ndash;right, economic left&ndash;right, GAL-TAN</li>
+      <li><strong>Consistently negative correlation</strong>: more cross-ideological voting where electoral-system polarization is lower</li>
+    </ul>
+    <span class="app-link" onclick="event.stopPropagation(); goToSlideId('app-party-matching')" data-step="2">Appendix: Party matching table</span>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 16: CORRELATES -->
+<div class="slide" data-section="Results">
+  <div class="slide-header"><h2>Correlates of Cross-Ideological Vote Splitting</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body" style="padding:10px 20px;">
+    <div class="img-reveal">
+      <img src="plots/context_multivariate_coefplot_blank.svg" alt="Correlates coefficient plot (axes)">
+      <div class="img-full" data-step="1"><img src="plots/context_multivariate_coefplot.svg" alt="Correlates coefficient plot"></div>
+    </div>
+    <ul style="font-size:15px; margin-top:6px;" data-step="2">
+      <li><strong>More</strong> in: smaller municipalities, industrial communities, more candidates, higher share of women</li>
+      <li><strong>No association</strong> with: social assistance rate, share of foreigners</li>
+    </ul>
+    <span class="app-link" onclick="event.stopPropagation(); goToSlideId('app-bivariate')" data-step="2">Appendix: Bivariate correlates</span>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 17: CONCLUSION -->
+<div class="slide" data-section="Conclusion" data-dim-previous>
+  <div class="slide-header"><h2>Conclusion</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body">
+    <h3 data-step="0">Key Findings</h3>
+    <ol data-step="0">
+      <li><strong>Cross-ideological vote splitting exists but has declined</strong> over time (2007&ndash;2023), consistent with increasing polarization</li>
+      <li><strong>Geographic variation</strong> is systematic: more common in smaller municipalities, industrial communities, and where more candidates compete</li>
+      <li>Our measure <strong>correlates meaningfully</strong> with both affective polarization and electoral-system polarization</li>
+    </ol>
+    <h3 data-step="1">Broader Implications</h3>
+    <ul data-step="1">
+      <li>Free-list systems can reveal <strong> cross-partisan behavior</strong></li>
+      <li>Vote splitting complements survey-based &amp; party-positioning polarization measures</li>
+      <li>Allows to scrutinize role of <strong>local social environments</strong></li>
+    </ul>
+    <h3 data-step="2">Future Directions</h3>
+    <ul data-step="2">
+      <li>Candidate characteristics and cross-ideological appeal</li>
+      <li>Role of local social networks</li>
+      <li>Role of perception &amp; in-group identities</li>
+    </ul>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- SLIDE 18: THANK YOU -->
+<div class="slide section-slide" data-section="">
+  <div class="slide-header" style="background:transparent;min-height:4px;padding:2px;"></div>
+  <div class="slide-body">
+    <h1>Thank You!<br><br>
+      <span style="font-size:21px;font-weight:400;opacity:0.85;">
+        Thomas Tichelbaecker &middot; Lea Portmann
+      </span>
+    </h1>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- ===== APPENDIX SLIDES ===== -->
+
+<!-- APP A1: Vote Flows by Year -->
+<div class="slide" id="app-flows-year" data-section="" data-appendix="true">
+  <div class="slide-header"><h2>Appendix: Vote Flows by Year</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body" style="padding:10px 20px;">
+    <div class="img-container">
+      <img src="plots/voter_flows_by_year.svg" alt="Vote flows by year">
+    </div>
+    <span class="app-link" onclick="event.stopPropagation(); goBack()">&larr; Back</span>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- APP A2: CIVS Distributions -->
+<div class="slide" id="app-distributions" data-section="" data-appendix="true">
+  <div class="slide-header"><h2>Appendix: CIVS Distributions</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body" style="padding:10px 20px;">
+    <div class="img-container">
+      <img src="plots/civs_distributions.svg" alt="CIVS distributions">
+    </div>
+    <span class="app-link" onclick="event.stopPropagation(); goBack()">&larr; Back</span>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- APP A3: Left vs Right Voters -->
+<div class="slide" id="app-left-vs-right" data-section="" data-appendix="true">
+  <div class="slide-header"><h2>Appendix: Left vs. Right Voters</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body" style="padding:10px 20px;">
+    <div class="img-container">
+      <img src="plots/civs_left_vs_right.svg" alt="Left vs right CIVS">
+    </div>
+    <span class="app-link" onclick="event.stopPropagation(); goBack()">&larr; Back</span>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- APP A4: Regression Validation -->
+<div class="slide" id="app-reg-validation" data-section="" data-appendix="true">
+  <div class="slide-header"><h2>Appendix: Regression Validation</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body">
+    <table>
+      <thead>
+        <tr><th></th><th colspan="2">Ext. pref. voteshare</th></tr>
+        <tr><th></th><th>(1) All dyads</th><th>(2) Cross-ideological</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>(Intercept)</td><td>0.625**</td><td>0.296**</td></tr>
+        <tr><td></td><td>(0.186)</td><td>(0.100)</td></tr>
+        <tr><td>Outparty feeling (std.)</td><td>0.970***</td><td>0.320*</td></tr>
+        <tr><td></td><td>(0.176)</td><td>(0.129)</td></tr>
+      </tbody>
+    </table>
+    <table style="margin-top:8px;">
+      <tbody>
+        <tr><td>N</td><td>48</td><td>35</td></tr>
+        <tr><td>R&sup2;</td><td>0.398</td><td>0.156</td></tr>
+        <tr><td>R&sup2; Adj.</td><td>0.385</td><td>0.131</td></tr>
+        <tr><td>RMSE</td><td>1.25</td><td>0.75</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px; color:var(--gray); margin-top:8px;">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001. Standard errors: IID.</p>
+    <span class="app-link" onclick="event.stopPropagation(); goBack()">&larr; Back</span>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- APP A5: Party Matching (CHES) -->
+<div class="slide" id="app-party-matching" data-section="" data-appendix="true">
+  <div class="slide-header"><h2>Appendix: Party Matching (CHES 2019)</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body">
+    <table>
+      <thead>
+        <tr><th>Panaschierstatistik</th><th>CHES 2019</th><th>LR Score</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>BDP</td><td>BDP/PBD</td><td>5.82</td><td>Matched</td></tr>
+        <tr><td>CVP</td><td>CVP/PVC</td><td>5.27</td><td>Matched</td></tr>
+        <tr><td>EVP</td><td>EVP/PEV</td><td>5.82</td><td>Matched</td></tr>
+        <tr><td>FDP</td><td>FDP/PLR</td><td>7.00</td><td>Matched</td></tr>
+        <tr><td>GLP</td><td>GPL/PVL</td><td>4.91</td><td>Matched</td></tr>
+        <tr><td>GP</td><td>GPS/PES</td><td>1.09</td><td>Matched</td></tr>
+        <tr><td>SP</td><td>SP/PS</td><td>1.36</td><td>Matched</td></tr>
+        <tr><td>SVP</td><td>SVP/UDC</td><td>8.73</td><td>Matched</td></tr>
+        <tr><td>CSP, EDU, Lega, PdA, ...</td><td>&mdash;</td><td>&mdash;</td><td>Dropped</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px; color:var(--gray); margin-top:8px;"><strong>Note:</strong> Smaller parties without CHES match are excluded from CHES-based analyses.</p>
+    <span class="app-link" onclick="event.stopPropagation(); goBack()">&larr; Back</span>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- APP A6: Bivariate Correlates -->
+<div class="slide" id="app-bivariate" data-section="" data-appendix="true">
+  <div class="slide-header"><h2>Appendix: Bivariate Correlates</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body" style="padding:10px 20px;">
+    <div class="img-container">
+      <img src="plots/context_bivariate.svg" alt="Bivariate correlates">
+    </div>
+    <span class="app-link" onclick="event.stopPropagation(); goBack()">&larr; Back</span>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+<!-- APP A7: Party Classification -->
+<div class="slide" id="app-party-class" data-section="" data-appendix="true">
+  <div class="slide-header"><h2>Appendix: Ideological Party Classification</h2><div class="logo-area"><img src="KHS_TUC_Logo.png" alt="TU Chemnitz"></div></div>
+  <div class="slide-body">
+    <table>
+      <thead>
+        <tr><th colspan="2">Politically Left</th><th colspan="2">Politically Centrist</th><th colspan="2">Politically Right</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Gr&uuml;ne</td><td>GP</td><td>BDP</td><td>BDP</td><td>EDU</td><td>EDU</td></tr>
+        <tr><td>JUSO</td><td>SP</td><td>CVP</td><td>CVP</td><td>FDP</td><td>FDP</td></tr>
+        <tr><td>SP</td><td>SP</td><td>EVP</td><td>EVP</td><td>SVP</td><td>SVP</td></tr>
+        <tr><td>SP/JUSO</td><td>SP</td><td>GLP</td><td>GLP</td><td>Junge SVP</td><td>SVP</td></tr>
+        <tr><td></td><td></td><td>Die Mitte</td><td>Mitte</td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px; color:var(--gray); margin-top:8px;"><strong>Note:</strong> Major parties and suborganizations if represented in national assembly. Smaller parties classified as "Other" are excluded.</p>
+    <span class="app-link" onclick="event.stopPropagation(); goBack()">&larr; Back</span>
+  </div>
+  <div class="slide-footer">
+    <div class="f-author">Tichelbaecker &amp; Portmann</div>
+    <div class="f-title">Cross-Ideological Vote Splitting</div>
+    <div class="f-page"></div>
+  </div>
+</div>
+
+</div>
+
+<div class="nav-hint">Arrow keys or click to navigate &middot; Press <kbd>F</kbd> for fullscreen</div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  const total = slides.length;
+  let returnSlide = null;
+
+  // Count main slides (non-appendix) for page numbering
+  const mainSlideCount = Array.from(slides).filter(s => !s.dataset.appendix).length;
+
+  const sections = [
+    { label: 'Motivation', key: 'Motivation' },
+    { label: 'Concept', key: 'Concept' },
+    { label: 'Measurement', key: 'Measurement' },
+    { label: 'Context', key: 'Context' },
+    { label: 'Results', key: 'Results' },
+    { label: 'Conclusion', key: 'Conclusion' }
+  ];
+
+  const sectionRanges = sections.map(sec => {
+    const indices = [];
+    slides.forEach((s, i) => {
+      if (s.getAttribute('data-section') === sec.key) indices.push(i);
+    });
+    return { ...sec, slides: indices };
+  });
+
+  // Build section nav bar and insert after slide-header in each slide
+  function buildSectionNav(slide) {
+    if (slide.classList.contains('section-slide') || slide.classList.contains('title-slide')) return;
+    if (slide.dataset.appendix) return; // skip appendix slides
+    const nav = document.createElement('div');
+    nav.className = 'section-nav';
+    sectionRanges.forEach(sec => {
+      const item = document.createElement('div');
+      item.className = 'sn-item';
+      item.textContent = sec.label;
+      item.addEventListener('click', e => {
+        e.stopPropagation();
+        if (sec.slides.length > 0) { go(sec.slides[0]); revealSteps(sec.slides[0], 0); }
+      });
+      nav.appendChild(item);
+    });
+    const header = slide.querySelector('.slide-header');
+    if (header && header.nextSibling) {
+      slide.insertBefore(nav, header.nextSibling);
+    } else {
+      slide.prepend(nav);
+    }
+  }
+
+  slides.forEach(s => buildSectionNav(s));
+
+  function getCurrentSectionIndex() {
+    const ds = slides[current].getAttribute('data-section');
+    let idx = sectionRanges.findIndex(s => s.key === ds);
+    if (idx === -1) {
+      for (let i = current + 1; i < total; i++) {
+        const d = slides[i].getAttribute('data-section');
+        const j = sectionRanges.findIndex(s => s.key === d);
+        if (j !== -1) { idx = j; break; }
+      }
+    }
+    return idx;
+  }
+
+  function updateSectionNav() {
+    const idx = getCurrentSectionIndex();
+    slides.forEach(slide => {
+      slide.querySelectorAll('.section-nav .sn-item').forEach((item, si) => {
+        item.classList.remove('sn-done', 'sn-current');
+        if (si < idx) item.classList.add('sn-done');
+        else if (si === idx) item.classList.add('sn-current');
+      });
+    });
+  }
+
+  function updatePageNumbers() {
+    let mainIdx = 0;
+    slides.forEach((s) => {
+      const pg = s.querySelector('.f-page');
+      if (!pg) return;
+      if (s.dataset.appendix) {
+        pg.textContent = 'Appendix';
+      } else {
+        mainIdx++;
+        pg.textContent = mainIdx + ' / ' + mainSlideCount;
+      }
+    });
+  }
+
+  // === Fragment / Build system ===
+  // For each slide, collect unique step numbers in order
+  function getSteps(slide) {
+    const els = slide.querySelectorAll('[data-step]');
+    const nums = new Set();
+    els.forEach(el => nums.add(parseInt(el.dataset.step)));
+    return Array.from(nums).sort((a, b) => a - b);
+  }
+
+  // Track current build state per slide: how many steps have been revealed
+  const slideStepState = new Map();
+  slides.forEach((s, i) => slideStepState.set(i, 0));
+
+  function revealSteps(slideIdx, upToStep) {
+    const slide = slides[slideIdx];
+    const dim = slide.hasAttribute('data-dim-previous');
+    slide.querySelectorAll('[data-step]').forEach(el => {
+      const step = parseInt(el.dataset.step);
+      if (step <= upToStep) {
+        el.classList.add('visible');
+        if (dim && step < upToStep && !el.hasAttribute('data-no-dim')) el.classList.add('dimmed');
+        else el.classList.remove('dimmed');
+      } else {
+        el.classList.remove('visible');
+        el.classList.remove('dimmed');
+      }
+    });
+    slideStepState.set(slideIdx, upToStep);
+  }
+
+  function go(n, showAllSteps) {
+    if (n < 0 || n >= total) return;
+    slides[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    // When jumping to a slide (not via next/prev), optionally show all steps
+    if (showAllSteps) {
+      const steps = getSteps(slides[current]);
+      revealSteps(current, steps.length > 0 ? steps[steps.length - 1] : 0);
+    }
+    updateSectionNav();
+  }
+
+  function goNext() {
+    const steps = getSteps(slides[current]);
+    const revealed = slideStepState.get(current);
+    // Find next unrevealed step
+    const nextStep = steps.find(s => s > revealed);
+    if (nextStep !== undefined) {
+      revealSteps(current, nextStep);
+    } else {
+      // All steps revealed (or no steps) — advance to next slide
+      if (current + 1 < total) {
+        go(current + 1);
+        revealSteps(current, 0); // reset: hide all steps on new slide
+      }
+    }
+  }
+
+  function goPrev() {
+    const steps = getSteps(slides[current]);
+    const revealed = slideStepState.get(current);
+    // Find the step to hide (go back one build)
+    const visibleSteps = steps.filter(s => s <= revealed);
+    if (visibleSteps.length > 0) {
+      // Hide the last revealed step group
+      const prevStep = visibleSteps.length >= 2 ? visibleSteps[visibleSteps.length - 2] : 0;
+      revealSteps(current, prevStep);
+    } else {
+      // No steps to hide — go to previous slide with all steps shown
+      if (current - 1 >= 0) {
+        go(current - 1);
+        const prevSteps = getSteps(slides[current]);
+        if (prevSteps.length > 0) {
+          revealSteps(current, prevSteps[prevSteps.length - 1]);
+        }
+      }
+    }
+  }
+
+  // Navigate to appendix slide by id, remember where we came from
+  window.goToSlideId = function(id) {
+    returnSlide = current;
+    const idx = Array.from(slides).findIndex(s => s.id === id);
+    if (idx !== -1) go(idx, true);
+  };
+
+  // Go back to the slide that linked to the appendix
+  window.goBack = function() {
+    if (returnSlide !== null) {
+      go(returnSlide, true);
+      returnSlide = null;
+    }
+  };
+
+  updatePageNumbers();
+  updateSectionNav();
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+      e.preventDefault(); goNext();
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault(); goPrev();
+    } else if (e.key === 'Home') {
+      e.preventDefault(); go(0); revealSteps(0, 0);
+    } else if (e.key === 'End') {
+      e.preventDefault(); go(total - 1, true);
+    } else if (e.key === 'Escape' && returnSlide !== null) {
+      e.preventDefault(); window.goBack();
+    } else if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  document.addEventListener('click', e => {
+    if (e.target.closest('.section-nav')) return;
+    if (e.target.closest('.app-link')) return;
+    if (e.clientX / window.innerWidth > 0.5) goNext();
+    else goPrev();
+  });
+})();
+</script>
+</body>
+</html>
