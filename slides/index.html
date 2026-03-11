@@ -1184,7 +1184,7 @@
     const steps = getSteps(slides[current]);
     const revealed = slideStepState.get(current);
     // Find the step to hide (go back one build)
-    const visibleSteps = steps.filter(s => s <= revealed);
+    const visibleSteps = steps.filter(s => s > 0 && s <= revealed);
     if (visibleSteps.length > 0) {
       // Hide the last revealed step group
       const prevStep = visibleSteps.length >= 2 ? visibleSteps[visibleSteps.length - 2] : 0;
