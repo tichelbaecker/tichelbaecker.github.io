@@ -1,25 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!-- Head -->
   <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script>
-    (function() {
-      var t = localStorage.getItem('theme');
-      if (t !== 'dark' && t !== 'light' && t !== 'system') t = 'system';
-      document.documentElement.setAttribute('data-theme-setting', t);
-      var theme = t;
-      if (t === 'system') {
-        theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      }
-      document.documentElement.setAttribute('data-theme', theme);
-    })();
-  </script>
-  <!-- Head -->
-  
-    <style>
-      html:not(.ready) body { opacity: 0; }
-      html.ready body { opacity: 1; }
-    </style>
     
     <!-- Metadata, OpenGraph and Schema.org -->
 
@@ -53,11 +36,6 @@
 
 
 
-<!-- Preconnect to CDN origins -->
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <!-- Bootstrap & MDB -->
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css?a4b3f509e79c54a512b890d73235ef04">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous">
@@ -67,31 +45,12 @@
 
 <!-- Fonts & Icons -->
 <link defer rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5">
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=optional" media="print" onload="this.media='all'">
-<noscript>
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=optional">
-</noscript>
+<link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap">
 
 <!-- Code Syntax Highlighting -->
 <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
 
 
-
-<!-- Critical inline styles to prevent navbar flash -->
-<style>
-  body.fixed-top-nav { padding-top: 70px; }
-  #navbar {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1030;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    background-color: var(--global-bg-color, #fff);
-  }
-</style>
 
 <!-- Styles -->
 
@@ -99,13 +58,13 @@
 
 
 
-  <link rel="shortcut icon" href="/assets/img/favicon.svg?67ae1db9bae9dba3a3718dfdcb3bff31">
+  <link rel="shortcut icon" href="/assets/img/favicon.png?4d0a37639c11d5752cef8985880e5706">
 
 <link rel="stylesheet" href="/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
 <link rel="canonical" href="https://tichelbaecker.com/teaching/">
 
 <!-- Dark Mode -->
-<script src="/assets/js/theme.js?37d4efda7bace3cd5e5e37effbfd57a8"></script>
+<script src="/assets/js/theme.js?a5ca4084d3b81624bcfa01156dae2b8e"></script>
 
   <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark">
   <script>
@@ -123,11 +82,10 @@
 
 
 
-  
+  </head>
 
   <!-- Body -->
-  </head>
-<body class="fixed-top-nav ">
+  <body class="fixed-top-nav ">
     <!-- Header -->
     <header>
   <!-- Nav Bar -->
@@ -136,7 +94,9 @@
       
         <a class="navbar-brand title font-weight-lighter" href="/">
           
-            Thomas
+            
+              <span class="font-weight-bold">Thomas</span>
+            
             
             Tichelbaecker
           
@@ -177,6 +137,78 @@
             
           
             
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
               
                 <li class="nav-item ">
                   
@@ -187,15 +219,6 @@
               
             
           
-            
-              
-                <li class="nav-item ">
-                  
-                  <a class="nav-link" href="/publications/">Publications
-                    
-                  </a>
-                </li>
-              
             
           
             
@@ -224,6 +247,10 @@
                   </a>
                 </li>
               
+            
+          
+            
+          
             
           
           
@@ -257,220 +284,275 @@
         <div class="post">
   <header class="post-header">
     <h1 class="post-title">Teaching</h1>
+    <p class="post-description"></p>
   </header>
 
   <article>
-    <div class="teaching-grid">
-      
-        <div class="course-card">
-          <div class="course-header">
-            <div class="course-title-row">
-              <div class="course-icon"><i class="fa-solid fa-globe"></i></div>
-              <h3 class="course-title">Introduction to Comparative Politics</h3>
-            </div>
-            <div class="course-meta">
-              <span class="course-semester">Fall 2023</span>
-              <span class="course-institution">Princeton University</span>
-            </div>
-          </div>
-          <div class="course-code">POL 230 / SPI 325</div>
-          <div class="course-role-row">
-            <span class="course-role">Teaching Assistant under Prof. Andreas Wiedemann</span>
-            <a class="btn btn-sm z-depth-0 course-desc-toggle" role="button" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">Description</a>
-          </div>
-          <div class="course-description">
-            <p>Why do states exist? Why are some democracies, and others autocracies? And why are some countries rich, while others are poor? This course introduces students to the study of domestic politics of other countries by focusing on topics such as economic development, democratization and regime change, political institutions, income redistribution, and political representation.</p>
+    <div class="publications">
+  <h2 class="bibliography">Journal Articles</h2>
+<ol class="bibliography"><li>
+<div class="row">
+  
 
-          </div>
-        </div>
+  <!-- Entry bib key -->
+  <div id="introcomp2023" class="col-sm-10">
+    <!-- Title -->
+    <div class="title">POL 230/SPI 325: Introduction to Comparative Politics</div>
+    <!-- Author -->
+    <div class="author">
       
-        <div class="course-card">
-          <div class="course-header">
-            <div class="course-title-row">
-              <div class="course-icon"><i class="fa-solid fa-landmark-dome"></i></div>
-              <h3 class="course-title">Politics in India</h3>
-            </div>
-            <div class="course-meta">
-              <span class="course-semester">Spring 2022</span>
-              <span class="course-institution">Princeton University</span>
-            </div>
-          </div>
-          <div class="course-code">POL 378</div>
-          <div class="course-role-row">
-            <span class="course-role">Teaching Assistant under Prof. Vinay Sitapati</span>
-            <a class="btn btn-sm z-depth-0 course-desc-toggle" role="button" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">Description</a>
-          </div>
-          <div class="course-description">
-            <p>What does it mean to be democratic in a poor country with diverse identities of language, gender, caste, class, and religion? And how has India balanced economic growth with equity? This course covers India’s political history from the colonial period through the Narendra Modi era, organized around concepts of the state, democracy, identity, and social movements.</p>
 
-          </div>
-        </div>
       
-        <div class="course-card">
-          <div class="course-header">
-            <div class="course-title-row">
-              <div class="course-icon"><i class="fa-solid fa-chart-line"></i></div>
-              <h3 class="course-title">Introduction to Quantitative Social Science</h3>
-            </div>
-            <div class="course-meta">
-              <span class="course-semester">Fall 2021</span>
-              <span class="course-institution">Princeton University</span>
-            </div>
-          </div>
-          <div class="course-code">POL 345</div>
-          <div class="course-role-row">
-            <span class="course-role">Teaching Assistant under Prof. Marc Ratkovic</span>
-            <a class="btn btn-sm z-depth-0 course-desc-toggle" role="button" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">Description</a>
-          </div>
-          <div class="course-description">
-            <p>Why do people vote the way they do? Can universal health insurance lead to a longer lifespan? This course provides an introduction to causal inference, probability theory, and estimation, with a focus on hands-on data analysis and the practical application of basic statistical methods to real-world problems.</p>
+      
+            Teaching assistant under Prof. Andreas Wiedemann
+          
+    </div>
 
-          </div>
-        </div>
+    <!-- Journal/Book title and date -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="periodical">
+      <em>Princeton University</em>,  Fall 2023
+    </div>
+    <div class="periodical">
       
     </div>
-  </article>
+
+    <!-- Links/Buttons -->
+    <div class="links">
+      
+      
+	    
+        <a class="abstract btn btn-sm z-depth-0" role="button">Description</a>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </div>
+    
+      
+      
+      
+      
+    
+
+    
+
+    
+
+
+    
+      <!-- Hidden abstract block -->
+      <div class="abstract hidden">
+        <p>Why do states exist? Why are some democracies, and others autocracies? And why are some countries rich, while others are poor? This course introduces students to the study of domestic politics of other countries, or comparative politics, by focusing on topics such as economic development, democratization and regime change, political institutions, income redistribution, and political representation. Readings on Africa, Asia, Europe, the Middle East, and the Americas are used to provide an introduction to politics in different regions of the world and to show how cross-national comparisons provide insight into contemporary political outcomes.</p>
+      </div>
+    
+
+    
+
+    
+  </div>
+</div>
+</li></ol>
+  <h2 class="bibliography">Journal Articles</h2>
+<ol class="bibliography"><li>
+<div class="row">
+  
+
+  <!-- Entry bib key -->
+  <div id="politicsindia2023" class="col-sm-10">
+    <!-- Title -->
+    <div class="title">POL 230/SPI 325: POL 378: Politics in India</div>
+    <!-- Author -->
+    <div class="author">
+      
+
+      
+      
+            Teaching assistant under Prof. Vinay Sitapati
+          
+    </div>
+
+    <!-- Journal/Book title and date -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="periodical">
+      <em>Princeton University</em>,  Spring 2022
+    </div>
+    <div class="periodical">
+      
+    </div>
+
+    <!-- Links/Buttons -->
+    <div class="links">
+      
+      
+	    
+        <a class="abstract btn btn-sm z-depth-0" role="button">Description</a>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </div>
+    
+      
+      
+      
+      
+    
+
+    
+
+    
+
+
+    
+      <!-- Hidden abstract block -->
+      <div class="abstract hidden">
+        <p>This course will introduce undergraduate students to the politics of India. The big themes of the course are as follows: What does it mean to be democratic in a poor country with diverse identities of language, gender, caste, class, and religion? And how has India balanced economic growth with equity? In order to familiarise students with facts and details, the first five weeks are structured as chronological history. We begin with the colonial period (1757-1947), before studying the eras of Jawaharlal Nehru (1947-64), Indira Gandhi (1965-1984) and the contemporary period (1985-2014). The next five weeks of the course are organised around concepts: the state, democracy and parties, identity and ethnicity, regional politics, and social movements. The final two weeks will focus on the Narendra Modi era (from 2014 to now), applying what we have learnt in the course to the present day.</p>
+      </div>
+    
+
+    
+
+    
+  </div>
+</div>
+</li></ol>
+  <h2 class="bibliography">Journal Articles</h2>
+<ol class="bibliography"><li>
+<div class="row">
+  
+
+  <!-- Entry bib key -->
+  <div id="introquant2021" class="col-sm-10">
+    <!-- Title -->
+    <div class="title">POL 345: Introduction to Quantitative Social Science</div>
+    <!-- Author -->
+    <div class="author">
+      
+
+      
+      
+            Teaching assistant under Prof. Marc Ratkovic
+          
+    </div>
+
+    <!-- Journal/Book title and date -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="periodical">
+      <em>Princeton University</em>,  Fall 2021
+    </div>
+    <div class="periodical">
+      
+    </div>
+
+    <!-- Links/Buttons -->
+    <div class="links">
+      
+      
+	    
+        <a class="abstract btn btn-sm z-depth-0" role="button">Description</a>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </div>
+    
+      
+      
+      
+      
+    
+
+    
+
+    
+
+
+    
+      <!-- Hidden abstract block -->
+      <div class="abstract hidden">
+        <p>Why do people vote the way they do? Can universal health insurance lead to a longer lifespan? What countries are more or less likely to erupt in civil conflict? Assessing these questions requires the ability to think analytically about data and statistics. This course will provide an introduction to causal inference, probability theory, and estimation. The focus of this course will be on hands-on data analysis and the practical application of basic statistical methods to real-world, relevant problems.</p>
+      </div>
+    
+
+    
+
+    
+  </div>
+</div>
+</li></ol>
 </div>
 
 <style>
-  .teaching-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 0.75rem;
-  }
+    h3.bibliography{ display:none}
 
-  .course-card {
-    border: 1px solid var(--global-divider-color);
-    border-left: 3px solid var(--global-theme-color);
-    border-radius: 8px;
-    padding: 0.75rem 1.25rem;
-    transition: box-shadow 0.2s ease, border-color 0.2s ease;
-  }
-
-  .course-card:hover {
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
-    border-left-color: var(--global-theme-color);
-  }
-
-  .course-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.25rem;
-  }
-
-  .course-title-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .course-icon {
-    font-size: 1.2rem;
-    color: var(--global-theme-color);
-  }
-
-  .course-meta {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  .course-semester {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--global-theme-color);
-  }
-
-  .course-institution {
-    font-size: 0.85rem;
-    color: var(--global-text-color-light);
-  }
-
-  .course-title {
-    font-size: 1.15rem;
-    font-weight: 600;
-    margin-bottom: 0;
-    color: var(--global-text-color);
-  }
-
-  .course-code {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--global-theme-color);
-    letter-spacing: 0.03em;
-    margin-bottom: 0.5rem;
-  }
-
-  .course-role-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .course-role {
-    font-size: 0.88rem;
-    color: var(--global-text-color-light);
-    font-style: italic;
-  }
-
-  .course-desc-toggle {
-    cursor: pointer;
-    font-size: 0.8rem;
-    color: var(--global-theme-color) !important;
-    border: 1px solid var(--global-theme-color);
-  }
-
-  .course-description {
-    display: none;
-    margin-top: 0.75rem;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--global-divider-color);
-    animation: fadeInDesc 0.2s ease;
-  }
-
-  .course-description.open {
-    display: block;
-  }
-
-  @keyframes fadeInDesc {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  .course-description p {
-    font-size: 0.9rem;
-    line-height: 1.7;
-    color: var(--global-text-color);
-    margin-bottom: 0;
-    text-align: justify;
-    text-justify: inter-word;
-  }
-
-  .post-title {
-    font-size: 1.7rem;
-  }
-
-  .post-description {
-    display: none;
-  }
-
-  @media (max-width: 575.98px) {
-    .course-card {
-      padding: 1.25rem;
+    .publications h2.bibliography {
+        display:none
     }
-    .course-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
+
+    .title {
+      color: var(--global-theme-color);
     }
-    .course-meta {
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-  }
 </style>
+
+
+  </article>
+
+  
+
+  
+</div>
 
       
     </div>
@@ -482,15 +564,14 @@
       © Copyright 2026
       Thomas
       
-      Tichelbaecker. 
+      Tichelbaecker. Powered by Jekyll with al-folio theme.
+
       
       
     </div>
   </footer>
 
 
-
-    <script>document.documentElement.classList.add('ready');</script>
 
     <!-- JavaScripts -->
     <!-- jQuery -->
@@ -534,8 +615,8 @@
 
 
 <!-- Load Common JS -->
-<script defer src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script>
-<script defer src="/assets/js/common.js?cb0073edefb800e3f4ea70a0559159f5"></script>
+<script src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script>
+<script defer src="/assets/js/common.js?b7816bd189846d29eded8745f9c4cf77"></script>
 <script defer src="/assets/js/copy_code.js?12775fdf7f95e901d7119054556e495f" type="text/javascript"></script>
 
 <!-- Jupyter Open External Links New Tab -->
@@ -591,7 +672,7 @@
      * values.
      */
     window.onload = function () {
-      progressBarSetup();
+      setTimeout(progressBarSetup, 50);
     };
     /*
      * We set up the bar according to the browser.
@@ -622,6 +703,7 @@
 
     function initializeProgressElement() {
       let navbarHeight = $('#navbar').outerHeight(true);
+      $('body').css({ 'padding-top': navbarHeight });
       $('progress-container').css({ 'padding-top': navbarHeight });
       progressBar.css({ top: navbarHeight });
       progressBar.attr({
