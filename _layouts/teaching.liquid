@@ -1,0 +1,175 @@
+---
+layout: default
+---
+<div class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+  </header>
+
+  <article>
+    <div class="teaching-grid">
+      {% for course in page.courses %}
+        <div class="course-card">
+          <div class="course-header">
+            <div class="course-title-row">
+              <div class="course-icon"><i class="{{ course.icon }}"></i></div>
+              <h3 class="course-title">{{ course.title }}</h3>
+            </div>
+            <div class="course-meta">
+              <span class="course-semester">{{ course.semester }}</span>
+              <span class="course-institution">{{ course.institution }}</span>
+            </div>
+          </div>
+          <div class="course-code">{{ course.code }}</div>
+          <div class="course-role-row">
+            <span class="course-role">{{ course.role }}</span>
+            <a class="btn btn-sm z-depth-0 course-desc-toggle" role="button" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">Description</a>
+          </div>
+          <div class="course-description">
+            {{ course.description | markdownify }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </article>
+</div>
+
+<style>
+  .teaching-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .course-card {
+    border: 1px solid var(--global-divider-color);
+    border-left: 3px solid var(--global-theme-color);
+    border-radius: 8px;
+    padding: 0.75rem 1.25rem;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .course-card:hover {
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+    border-left-color: var(--global-theme-color);
+  }
+
+  .course-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+  }
+
+  .course-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .course-icon {
+    font-size: 1.2rem;
+    color: var(--global-theme-color);
+  }
+
+  .course-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .course-semester {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--global-theme-color);
+  }
+
+  .course-institution {
+    font-size: 0.85rem;
+    color: var(--global-text-color-light);
+  }
+
+  .course-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: var(--global-text-color);
+  }
+
+  .course-code {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--global-theme-color);
+    letter-spacing: 0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  .course-role-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .course-role {
+    font-size: 0.88rem;
+    color: var(--global-text-color-light);
+    font-style: italic;
+  }
+
+  .course-desc-toggle {
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: var(--global-theme-color) !important;
+    border: 1px solid var(--global-theme-color);
+  }
+
+  .course-description {
+    display: none;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--global-divider-color);
+    animation: fadeInDesc 0.2s ease;
+  }
+
+  .course-description.open {
+    display: block;
+  }
+
+  @keyframes fadeInDesc {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .course-description p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--global-text-color);
+    margin-bottom: 0;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .post-title {
+    font-size: 1.7rem;
+  }
+
+  .post-description {
+    display: none;
+  }
+
+  @media (max-width: 575.98px) {
+    .course-card {
+      padding: 1.25rem;
+    }
+    .course-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .course-meta {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+</style>

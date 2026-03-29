@@ -1,0 +1,101 @@
+<div class="research-areas">
+  <a href="/research/?area=elites" class="research-card" data-area="elites">
+    <div class="research-card-icon">
+      <i class="fa-solid fa-users"></i>
+    </div>
+    <h3>Political Elites & Party Organizations</h3>
+  </a>
+  <a href="/research/?area=polarization" class="research-card" data-area="polarization">
+    <div class="research-card-icon">
+      <i class="fa-solid fa-arrows-left-right"></i>
+    </div>
+    <h3>Political Polarization</h3>
+  </a>
+  <a href="/research/?area=democracy" class="research-card" data-area="democracy">
+    <div class="research-card-icon">
+      <i class="fa-solid fa-landmark"></i>
+    </div>
+    <h3>Challenges to Liberal Democracy</h3>
+  </a>
+</div>
+
+<style>
+  .research-areas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .research-areas {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .research-areas {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .research-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border: 1px solid color-mix(in srgb, var(--global-theme-color) 20%, transparent);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--global-text-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .research-card[data-area="elites"] {
+    --card-color: #3d5a80;
+    background-color: color-mix(in srgb, #3d5a80 12%, var(--global-bg-color));
+    border-color: color-mix(in srgb, #3d5a80 20%, transparent);
+  }
+  .research-card[data-area="polarization"] {
+    --card-color: #9b6a3c;
+    background-color: color-mix(in srgb, #9b6a3c 12%, var(--global-bg-color));
+    border-color: color-mix(in srgb, #9b6a3c 20%, transparent);
+  }
+  .research-card[data-area="democracy"] {
+    --card-color: #4a7a5a;
+    background-color: color-mix(in srgb, #4a7a5a 12%, var(--global-bg-color));
+    border-color: color-mix(in srgb, #4a7a5a 20%, transparent);
+  }
+
+  .research-card:hover {
+    border-color: var(--card-color, var(--global-theme-color));
+    background-color: color-mix(in srgb, var(--card-color, var(--global-theme-color)) 20%, var(--global-bg-color));
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+    color: var(--global-text-color);
+  }
+
+  .research-card-icon {
+    font-size: 1.5rem;
+    color: var(--card-color, var(--global-theme-color));
+    flex-shrink: 0;
+  }
+
+  .research-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: var(--global-text-color);
+  }
+
+  .research-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--global-text-color-light);
+    margin-bottom: 0;
+  }
+</style>

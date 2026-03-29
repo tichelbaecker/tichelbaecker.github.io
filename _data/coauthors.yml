@@ -1,0 +1,51 @@
+"horne":
+  - firstname: ["Will"]
+    url: https://www.rwillhorne.com
+
+"wiedemann":
+  - firstname: ["Andreas"]
+    url: https://en.wikipedia.org/wiki/Nathan_Rosen
+
+"alizade":
+  - firstname: ["Jey", "Jeyhun"]
+    url: https://www.jeyhunalizade.com
+
+"haass":
+  - firstname: ["Felix"]
+    url: https://felixhaass.de
+
+"koos":
+  - firstname: ["Carlo"]
+    url: https://www.carlokoos.com
+
+"ellger":
+  - firstname: ["Fabio"]
+    url: https://www.fabioellger.com
+
+"gidron":
+  - firstname: ["Noam"]
+    url: https://noamgidron.com/
+
+"riaz":
+  - firstname: ["Sascha"]
+    url: https://saschariaz.com
+
+"auer":
+  - firstname: ["Daniel"]
+    url: https://daniel-auer.com
+
+"portmann":
+  - firstname: ["Lea"]
+    url: https://leaportmann.wordpress.com
+
+"de juan":
+  - firstname: ["Alex", "Alexander"]
+    url: https://www.alexander-dejuan.de
+
+"grunewald":
+  - firstname: ["Marius", "Marius K."]
+    url: https://www.eui.eu/people?id=marius-gruenewald
+
+"leininger":
+  - firstname: ["Arndt"]
+    url: https://www.aleininger.eu
