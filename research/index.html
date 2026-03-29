@@ -1,8 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- Head -->
   <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+    (function() {
+      var t = localStorage.getItem('theme');
+      if (t !== 'dark' && t !== 'light' && t !== 'system') t = 'system';
+      document.documentElement.setAttribute('data-theme-setting', t);
+      var theme = t;
+      if (t === 'system') {
+        theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <!-- Head -->
+  
+    <style>
+      html:not(.ready) body { opacity: 0; }
+      html.ready body { opacity: 1; }
+    </style>
     
     <!-- Metadata, OpenGraph and Schema.org -->
 
@@ -36,6 +53,11 @@
 
 
 
+<!-- Preconnect to CDN origins -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <!-- Bootstrap & MDB -->
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css?a4b3f509e79c54a512b890d73235ef04">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous">
@@ -45,12 +67,31 @@
 
 <!-- Fonts & Icons -->
 <link defer rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5">
-<link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=optional" media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=optional">
+</noscript>
 
 <!-- Code Syntax Highlighting -->
 <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
 
 
+
+<!-- Critical inline styles to prevent navbar flash -->
+<style>
+  body.fixed-top-nav { padding-top: 70px; }
+  #navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    background-color: var(--global-bg-color, #fff);
+  }
+</style>
 
 <!-- Styles -->
 
@@ -58,13 +99,13 @@
 
 
 
-  <link rel="shortcut icon" href="/assets/img/favicon.png?4d0a37639c11d5752cef8985880e5706">
+  <link rel="shortcut icon" href="/assets/img/favicon.svg?67ae1db9bae9dba3a3718dfdcb3bff31">
 
 <link rel="stylesheet" href="/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
 <link rel="canonical" href="https://tichelbaecker.com/research/">
 
 <!-- Dark Mode -->
-<script src="/assets/js/theme.js?a5ca4084d3b81624bcfa01156dae2b8e"></script>
+<script src="/assets/js/theme.js?37d4efda7bace3cd5e5e37effbfd57a8"></script>
 
   <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark">
   <script>
@@ -82,10 +123,11 @@
 
 
 
-  </head>
+  
 
   <!-- Body -->
-  <body class="fixed-top-nav ">
+  </head>
+<body class="fixed-top-nav ">
     <!-- Header -->
     <header>
   <!-- Nav Bar -->
@@ -94,9 +136,7 @@
       
         <a class="navbar-brand title font-weight-lighter" href="/">
           
-            
-              <span class="font-weight-bold">Thomas</span>
-            
+            Thomas
             
             Tichelbaecker
           
@@ -137,78 +177,6 @@
             
           
             
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
               
                 <li class="nav-item active">
                   
@@ -221,6 +189,15 @@
               
             
           
+            
+              
+                <li class="nav-item ">
+                  
+                  <a class="nav-link" href="/publications/">Publications
+                    
+                  </a>
+                </li>
+              
             
           
             
@@ -247,10 +224,6 @@
                   </a>
                 </li>
               
-            
-          
-            
-          
             
           
           
@@ -284,948 +257,475 @@
         <div class="post">
   <header class="post-header">
     <h1 class="post-title">Research</h1>
-    <p class="post-description"></p>
   </header>
 
   <article>
-    <!-- _pages/publications.md -->
-<div class="publications">
- <h2 class="bibliography">Journal Articles</h2>
-<h3 class="bibliography">2025</h3>
-<ol class="bibliography">
-<li>
-<div class="container">
+    <p>My research spans three interconnected areas. I study the composition, emergence, and evolution of political elites and party organizations, the nature and causes of political polarization, and how conflict, violence, and extremist actors threaten liberal democracy. Across these areas, I combine large-scale archival data with experimental and observational research designs.</p>
 
-<div class="left-column">
-  <div class="publications">
-    
-  </div>
-  </div>
 
-<div class="right-column">
-<div class="row">
-  
-
-  <!-- Entry bib key -->
-  <div id="auerElectoralDiscriminationParty2023" class="col-sm-10">
-    <!-- Title -->
-    <div class="title">Electoral Discrimination, Party Rationale, and the Underrepresentation of Immigrant‐Origin Politicians</div>
-    <!-- Author -->
-    <div class="author">
+    <div class="research-areas">
       
-
+        <button class="research-card active" data-area="elites" onclick="showArea('elites')">
+          <div class="research-card-icon">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <h3>Political Elites &amp; Party Organizations</h3>
+          <p>To better understand party organizations, I take a micro-level perspective and study who is running, why, and how this has changed over time. 
+</p>
+        </button>
       
-      <a href="https://daniel-auer.com" rel="external nofollow noopener" target="_blank">Daniel
-              Auer</a>, <a href="https://leaportmann.wordpress.com" rel="external nofollow noopener" target="_blank">Lea
-              Portmann</a>, and <em>Thomas
-            Tichelbaecker</em>
-    </div>
-
-    <!-- Journal/Book title and date -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="periodical">
-      <em>American Journal of Political Science</em>,  2025
-    </div>
-    <div class="periodical">
+        <button class="research-card" data-area="polarization" onclick="showArea('polarization')">
+          <div class="research-card-icon">
+            <i class="fa-solid fa-arrows-left-right"></i>
+          </div>
+          <h3>Political Polarization</h3>
+          <p>I study how political polarization, broadly understood. My work focuses on  affective polarization and a new polarization measure based on electoral behavior.
+</p>
+        </button>
+      
+        <button class="research-card" data-area="democracy" onclick="showArea('democracy')">
+          <div class="research-card-icon">
+            <i class="fa-solid fa-landmark"></i>
+          </div>
+          <h3>Challenges to Liberal Democracy</h3>
+          <p>Today liberal democratic institutions are challenged across the world. I study the rise of extremist actors, the effect of violence and war, and ways militant  democracies can counteract threats.
+</p>
+        </button>
       
     </div>
 
-    <!-- Links/Buttons -->
-    <div class="links">
-      
-      
-        <a class="abstract btn btn-sm z-depth-0" role="button">Abstract</a>
-      
-	    
-      
-          <a href="https://onlinelibrary.wiley.com/doi/10.1111/ajps.12817" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Link</a>
-       
-      
-        <a class="award btn btn-sm z-depth-0" role="button">Media</a>
-      
-      
-      
-        <a href="https://doi.org/10.7910/DVN/EIINMP" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Replication files</a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    </div>
     
-      
-      
-      
-      
-    
-
-    
-
-    
-      <!-- Hidden Award block -->
-      <div class="award hidden d-print-inline">
-        <p></p>
-<p><a href="https://www.tagesanzeiger.ch/waehler-und-parteien-diskriminieren-kandidaten-mit-auslaendischen-namen-662046059079" rel="external nofollow noopener" target="_blank">Tagesanzeiger. “Wähler und Parteien diskriminieren Kandidaten mit ausländischen Namen”.</a></p>
-
-      </div>
-    
-
-    
-      <!-- Hidden abstract block -->
-      <div class="abstract hidden">
-        <p>Immigrants and other minorities are underrepresented in politics in most Western democracies. We argue that strategically acting party gatekeepers who update their nomination strategies based on voter behavior contribute to this representation gap. Drawing on unique panel data from Swiss local elections, we find that candidates with a “foreign‐sounding” name systematically receive not only fewer votes but are also fielded on less promising list positions compared to native candidates. We track candidates across elections and show that this inequality is driven by voter discrimination in previous elections. Our study carries relevance for research on minority candidates by linking different stages in the electoral process and showing how parties indirectly discriminate due to their use of candidate‐performance information. It also bears practical implications, pointing to avenues how parties can break the cycle of discrimination in the electoral process.</p>
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
+      <div class="research-section active" id="area-elites">
+        
+          <div class="cornell-row">
+            <aside class="cornell-margin">Who becomes a politician — and why?</aside>
+            <div class="cornell-content">
+<p>Political representation begins with who enters politics in the first place. I study the composition of political elites — examining how individual characteristics, local context, and voter discrimination shape who stands for office and who succeeds. My work leverages newly  collected candidate data across all levels of government (national, state, local).</p>
 </div>
+          </div>
+        
+          <div class="cornell-row">
+            <aside class="cornell-margin">How do parties select and recruit candidates?</aside>
+            <div class="cornell-content">
+<p>Parties play a central role in the selection and recruitment of candidates.  I investigate how parties select and recruit candidates, how nomination  strategies respond to electoral incentives, and how the interplay  between political demand and supply determines the pool of representatives.  Drawing on novel candidate-level data from local elections, I trace  these dynamics at a granular level.</p>
 </div>
+          </div>
+        
+          <div class="cornell-row">
+            <aside class="cornell-margin">How do local elites help new parties in establishing organizations?</aside>
+            <div class="cornell-content">
+<p>My dissertation, <em>Taking Root</em>, asks how new political parties build durable local organizations. I show that new parties mobilize voters and establish roots in communities by recruiting local elites who leverage their existing ties — transforming party entry from a top-down directive into a bottom-up process.</p>
 </div>
-</li>
-<li>
-<div class="container">
-
-<div class="left-column">
-  <div class="publications">
-    
-  </div>
-  </div>
-
-<div class="right-column">
-<div class="row">
-  
-
-  <!-- Entry bib key -->
-  <div id="alizadeExposurePoliticalViolenceForthcoming" class="col-sm-10">
-    <!-- Title -->
-    <div class="title">Does Political Violence Undermine Descriptive Representation? The Case of Women in Politics.</div>
-    <!-- Author -->
-    <div class="author">
-      
-
-      
-      <a href="https://www.jeyhunalizade.com" rel="external nofollow noopener" target="_blank">Jey
-              Alizade</a>, <a href="https://www.fabioellger.com" rel="external nofollow noopener" target="_blank">Fabio
-              Ellger</a>, Marius
-            Grünewald
-          , and <em>Thomas
-            Tichelbaecker</em>
-    </div>
-
-    <!-- Journal/Book title and date -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="periodical">
-      <em>European Journal of Political Research</em>,  2025
-    </div>
-    <div class="periodical">
-      
-    </div>
-
-    <!-- Links/Buttons -->
-    <div class="links">
-      
-      
-        <a class="abstract btn btn-sm z-depth-0" role="button">Abstract</a>
-      
-	    
-      
-          <a href="https://ejpr.onlinelibrary.wiley.com/doi/10.1111/1475-6765.70017" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Link</a>
-       
-      
-      
-      
-        <a href="https://github.com/mariusgruenewald/pol_viol/tree/main/replication_package" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Replication files</a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    </div>
-    
-      
-      
-      
-      
-    
-
-    
-
-    
-
-    
-      <!-- Hidden abstract block -->
-      <div class="abstract hidden">
-        <p>Do attacks against politicians affect the descriptive representation of women? Studies suggest that female candidates are more likely to become targets of political crime, but little is known about the consequences for descriptive representation. To study this question, we combine analyses of observational data measuring crimes against politicians with evidence from a survey experiment. Examining German local elections, we demonstrate that attacks against politicians are not associated with fewer female candidates on party lists. In addition, our survey experiment, using a sample of likely candidates, shows that exposure to political crime does not reduce willingness to run for office or engage in politics among female respondents. If anything, our findings suggest that political violence might reduce the gender gap in local politics. Our results highlight resilience among female candidates in face of increasing political violence.</p>
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-</div>
-</div>
-</div>
-</li>
-<li>
-<div class="container">
-
-<div class="left-column">
-  <div class="publications">
-    
-  </div>
-  </div>
-
-<div class="right-column">
-<div class="row">
-  
-
-  <!-- Entry bib key -->
-  <div id="gidronObservationalRelationshipsEvidence2025" class="col-sm-10">
-    <!-- Title -->
-    <div class="title">Beyond Observational Relationships: Evidence from a Ten-country Experiment That Policy Disputes Cause Affective Polarization</div>
-    <!-- Author -->
-    <div class="author">
-      
-
-      
-      <a href="https://noamgidron.com/" rel="external nofollow noopener" target="_blank">Noam
-              Gidron</a>, <a href="https://www.rwillhorne.com" rel="external nofollow noopener" target="_blank">Will
-              Horne</a>, <em>Thomas
-            Tichelbaecker</em>, and James
-            Adams
-          
-    </div>
-
-    <!-- Journal/Book title and date -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="periodical">
-      <em>British Journal of Political Science</em>,  2025
-    </div>
-    <div class="periodical">
-      
-    </div>
-
-    <!-- Links/Buttons -->
-    <div class="links">
-      
-      
-        <a class="abstract btn btn-sm z-depth-0" role="button">Abstract</a>
-      
-	    
-      
-          <a href="https://www.cambridge.org/core/journals/british-journal-of-political-science/article/beyond-observational-relationships-evidence-from-a-tencountry-experiment-that-policy-disputes-cause-affective-polarization/1953ECD3678AD3675793BF06C2479EAF" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Link</a>
-       
-      
-      
-      
-        <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZIKPBD" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Replication files</a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    </div>
-    
-      
-      
-      
-      
-    
-
-    
-
-    
-
-    
-      <!-- Hidden abstract block -->
-      <div class="abstract hidden">
-        <p>While scholars document associations between competing parties’ policy disputes and citizens’ cross-party hostility, that is, affective polarization, we lack causal comparative evidence of how different types of ideological disagreements shape partisan affective evaluations. We investigate this issue with a priming experiment across ten Western publics, which prompts some respondents to answer questions inviting them to discuss debates over either cultural or economic issues versus a control group that receives a non-political prompt. Respondents in the economic and cultural priming conditions expressed greater distrust of out-partisans, and, among respondents who received cultural priming, those who discussed immigration in their open-ended responses expressed far more distrust towards opponents – an effect driven by right-wing respondents who discussed immigration. These findings provide comparative evidence that economic and cultural debates cause affective polarization, with immigration as a primary cultural driver.</p>
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-</div>
-</div>
-</div>
-</li>
-</ol>
-<h3 class="bibliography">2024</h3>
+          </div>
+        
+        <div class="research-publications">
+          <h3 class="relevant-work-header">Relevant work</h3>
+          <h2 class="bibliography">Journal Articles</h2>
 <ol class="bibliography"><li>
-<div class="container">
+<div class="research-pub-entry">
+  <!-- Title -->
+  <span class="title"><a href="https://onlinelibrary.wiley.com/doi/10.1111/ajps.12817" rel="external nofollow noopener" target="_blank">Electoral Discrimination, Party Rationale, and the Underrepresentation of Immigrant‐Origin Politicians</a></span>
 
-<div class="left-column">
-  <div class="publications">
-    
-  </div>
-  </div>
+  <!-- Author -->
+  <span class="author"><a href="https://daniel-auer.com" rel="external nofollow noopener" target="_blank">Daniel Auer</a>, <a href="https://leaportmann.wordpress.com" rel="external nofollow noopener" target="_blank">Lea Portmann</a>, and <em>Thomas Tichelbaecker</em>
+  </span>
 
-<div class="right-column">
-<div class="row">
-  
-
-  <!-- Entry bib key -->
-  <div id="juanWarNationalismHow2024" class="col-sm-10">
-    <!-- Title -->
-    <div class="title">War and Nationalism: How WW1 Battle Deaths Fueled Civilians’ Support for the Nazi Party</div>
-    <!-- Author -->
-    <div class="author">
-      
-
-      
-      <a href="https://www.alexander-dejuan.de" rel="external nofollow noopener" target="_blank">Alexander
-              De Juan</a>, <a href="https://felixhaass.de" rel="external nofollow noopener" target="_blank">Felix
-              Haass</a>, <a href="https://www.carlokoos.com" rel="external nofollow noopener" target="_blank">Carlo
-              Koos</a>, <a href="https://saschariaz.com" rel="external nofollow noopener" target="_blank">Sascha
-              Riaz</a>, and <em>Thomas
-            Tichelbaecker</em>
-    </div>
-
-    <!-- Journal/Book title and date -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="periodical">
-      <em>American Political Science Review</em>,  2024
-    </div>
-    <div class="periodical">
-      
-    </div>
-
-    <!-- Links/Buttons -->
-    <div class="links">
-      
-      
-        <a class="abstract btn btn-sm z-depth-0" role="button">Abstract</a>
-      
-	    
-      
-          <a href="https://www.cambridge.org/core/journals/american-political-science-review/article/war-and-nationalism-how-ww1-battle-deaths-fueled-civilians-support-for-the-nazi-party/06D9FB5556788A56FE95972CA3CBD3B6#article" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Link</a>
-       
-      
-        <a class="award btn btn-sm z-depth-0" role="button">Media</a>
-      
-      
-      
-        <a href="https://doi.org/10.7910/DVN/WOEWJ3" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Replication files</a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    </div>
-    
-      
-      
-      
-      
-    
-
-    
-
-    
-      <!-- Hidden Award block -->
-      <div class="award hidden d-print-inline">
-        <p></p>
-<p><a href="https://taz.de/!6039740/" rel="external nofollow noopener" target="_blank">TAZ. “Je mehr Kriegstote, desto mehr NSDAP-WählerInnen”.</a> <br> KATAPULT Ausgabe 34 / 2024, p. 68. “Kriege stärken rechtsnationale Parteien”.</p>
-
-      </div>
-    
-
-    
-      <!-- Hidden abstract block -->
-      <div class="abstract hidden">
-        <p>Can wars breed nationalism? We argue that civilians’ indirect exposure to war fatalities can trigger psychological processes that increase identification with their nation and ultimately strengthen support for nationalist parties. We test this argument in the context of the rise of the Nazi Party after World War 1 (WW1). To measure localized war exposure, we machine-coded information on 7.5 million German soldiers who were wounded or died in WW1. Our empirical strategy leverages battlefield dynamics that cause plausibly exogenous variation in the county-level casualty fatality rate—the share of dead soldiers among all casualties. We find that throughout the interwar period, electoral support for right-wing nationalist parties, including the Nazi Party, was 2.6 percentage points higher in counties with above-median casualty fatality rates. Consistent with our proposed mechanism, we find that this effect was driven by civilians rather than veterans and areas with a preexisting tradition of collective war commemoration.</p>
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-</div>
-</div>
-</div>
-</li></ol>
-<h3 class="bibliography">2023</h3>
-<ol class="bibliography"><li>
-<div class="container">
-
-<div class="left-column">
-  <div class="publications">
-    
-  </div>
-  </div>
-
-<div class="right-column">
-<div class="row">
-  
-
-  <!-- Entry bib key -->
-  <div id="tichelbaeckerWhatWeMeasure2023" class="col-sm-10">
-    <!-- Title -->
-    <div class="title">What Do We Measure When We Measure Affective Polarization across Countries?</div>
-    <!-- Author -->
-    <div class="author">
-      
-
-      
-      <em>Thomas
-            Tichelbaecker</em>, <a href="https://noamgidron.com/" rel="external nofollow noopener" target="_blank">Noam
-              Gidron</a>, <a href="https://www.rwillhorne.com" rel="external nofollow noopener" target="_blank">Will
-              Horne</a>, and James
-            Adams
-          
-    </div>
-
-    <!-- Journal/Book title and date -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="periodical">
-      <em>Public Opinion Quarterly</em>,  2023
-    </div>
-    <div class="periodical">
-      
-    </div>
-
-    <!-- Links/Buttons -->
-    <div class="links">
-      
-      
-        <a class="abstract btn btn-sm z-depth-0" role="button">Abstract</a>
-      
-	    
-      
-          <a href="https://academic.oup.com/poq/article/87/3/803/7277372" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Link</a>
-       
-      
-      
-      
-        <a href="https://doi.org/10.7910/DVN/VP51ID" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Replication files</a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    </div>
-    
-      
-      
-      
-      
-    
-
-    
-
-    
-
-    
-      <!-- Hidden abstract block -->
-      <div class="abstract hidden">
-        <p>Measures of affective polarization—that is, dislike and hostility across party lines—have been developed and validated in the context of America’s two-party system. Yet increasingly, affective polarization is examined comparatively. We address this issue by introducing a novel dataset that measures aspects of partisan affect in 10 countries with diverse party systems. We detect associations between partisan affect toward out-parties versus affect toward out-parties’ supporters, but their strength varies across countries. We discuss measurement reasons for this variation and consider the implications of our findings for the emerging comparative affective polarization literature.</p>
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-</div>
-</div>
-</div>
-</li></ol>
-<h2 class="bibliography">Books</h2>
-<h3 class="bibliography">2025</h3>
-<ol class="bibliography"><li>
-<div class="container">
-
-<div class="left-column">
-  <div class="publications">
-    
-  </div>
-  </div>
-
-<div class="right-column">
-<div class="row">
-  
-
-  <!-- Entry bib key -->
-  <div id="gidronEuropeanIdeologicalSpaceForthcoming" class="col-sm-10">
-    <!-- Title -->
-    <div class="title">The European Ideological Space in Voters’ Own Words</div>
-    <!-- Author -->
-    <div class="author">
-      
-
-      
-      <a href="https://noamgidron.com/" rel="external nofollow noopener" target="_blank">Noam
-              Gidron</a>, and <em>Thomas
-            Tichelbaecker</em>
-    </div>
-
-    <!-- Journal/Book title and date -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="periodical">
-      <em>Cambridge University Press</em>,  2025
-    </div>
-    <div class="periodical">
-      
-    </div>
-
-    <!-- Links/Buttons -->
-    <div class="links">
-      
-      
-        <a class="abstract btn btn-sm z-depth-0" role="button">Abstract</a>
-      
-	    
-      
-          <a href="https://www.cambridge.org/core/elements/abs/european-ideological-space-in-voters-own-words/7FC6F6EDBB748454E222E335232E003B" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Link</a>
-       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    </div>
-    
-      
-      
-      
-      
-    
-
-    
-
-    
-
-    
-      <!-- Hidden abstract block -->
-      <div class="abstract hidden">
-        <p>There is a broad consensus among scholars that the ideological space of Western democracies consists of two distinct dimensions: one economic and the other cultural. In this Element, we explore how ordinary citizens make sense of these two dimensions. Analyzing novel survey data collected across 10 Western democracies, we employ text analysis techniques to investigate responses to open-ended questions. We examine variations in how people interpret these two ideological dimensions along three levels of analyses: across countries, based on demographic features, and along the left-right divide. Our results suggest that there are multiple two-dimensional spaces: that is, different groups ascribe different meanings to what the economic and cultural political divides stand for. We also find that the two dimensions are closely intertwined in people’s minds. Our findings make theoretical contributions to the study of electoral politics and political ideology.</p>
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-</div>
-</div>
+  <!-- Journal/venue and year --><span class="periodical"><em>American Journal of Political Science</em>, 2025</span>
 </div>
 </li></ol>
 <h2 class="bibliography">Work in Progress</h2>
-<h3 class="bibliography">2026</h3>
-<ol class="bibliography"><li>
-<div class="container">
-
-<div class="left-column">
-  <div class="publications">
-    
-  </div>
-  </div>
-
-<div class="right-column">
-<div class="row">
-  
-
-  <!-- Entry bib key -->
-  <div id="tichelbaeckerHowNewParties2026" class="col-sm-10">
-    <!-- Title -->
-    <div class="title">Taking Root: How New Parties Mobilize Voters and Build Organizations</div>
-    <!-- Author -->
-    <div class="author">
-      
-
-      
-      <em>Thomas
-            Tichelbaecker</em>
-    </div>
-
-    <!-- Journal/Book title and date -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="periodical">
-      2026
-    </div>
-    <div class="periodical">
-      
-    </div>
-
-    <!-- Links/Buttons -->
-    <div class="links">
-      
-      
-	    
-      
-      
-      
-      
-      
-      
-      
-        
-          <a href="/assets/pdf/Dissertation_Tichelbaecker.pdf" class="btn btn-sm z-depth-0" role="button">PDF</a>
-        
-      
-      
-      
-      
-      
-      
-      
-      
-    </div>
-    
-      
-      
-      
-      
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-  </div>
-</div>
-</div>
-</div>
-</li></ol>
-<h3 class="bibliography">2025</h3>
 <ol class="bibliography">
 <li>
-<div class="container">
+<div class="research-pub-entry">
+  <!-- Title -->
+  <span class="title"><a href="/assets/pdf/Dissertation_Tichelbaecker.pdf">Taking Root: How New Parties Mobilize Voters and Build Organizations</a></span>
 
-<div class="left-column">
-  <div class="publications">
-    
-  </div>
-  </div>
+  <!-- Author -->
+  <span class="author"><em>Thomas Tichelbaecker</em>
+  </span>
 
-<div class="right-column">
-<div class="row">
-  
-
-  <!-- Entry bib key -->
-  <div id="tichelbaeckerWhoReachesAisle2025" class="col-sm-10">
-    <!-- Title -->
-    <div class="title">Who Reaches across the Aisle?</div>
-    <!-- Author -->
-    <div class="author">
-      
-
-      
-      <a href="https://leaportmann.wordpress.com" rel="external nofollow noopener" target="_blank">Lea
-              Portmann</a>, <em>Thomas
-            Tichelbaecker</em>, and <a href="https://daniel-auer.com" rel="external nofollow noopener" target="_blank">Daniel
-              Auer</a>
-    </div>
-
-    <!-- Journal/Book title and date -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="periodical">
-      2025
-    </div>
-    <div class="periodical">
-      
-    </div>
-
-    <!-- Links/Buttons -->
-    <div class="links">
-      
-      
-	    
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    </div>
-    
-      
-      
-      
-      
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-  </div>
-</div>
-</div>
+  <!-- Journal/venue and year --><span class="periodical working-paper">Working paper, 2026</span>
 </div>
 </li>
 <li>
-<div class="container">
+<div class="research-pub-entry">
+  <!-- Title -->
+  <span class="title">Who Reaches across the Aisle?</span>
 
-<div class="left-column">
-  <div class="publications">
-    
-  </div>
-  </div>
+  <!-- Author -->
+  <span class="author"><a href="https://leaportmann.wordpress.com" rel="external nofollow noopener" target="_blank">Lea Portmann</a>, and <em>Thomas Tichelbaecker</em>
+  </span>
 
-<div class="right-column">
-<div class="row">
-  
-
-  <!-- Entry bib key -->
-  <div id="tichelbaeckerWhoReachesAisle2026" class="col-sm-10">
-    <!-- Title -->
-    <div class="title">Still competing for loyalists? </div>
-    <!-- Author -->
-    <div class="author">
-      
-
-      
-      <em>Thomas
-            Tichelbaecker</em>, and Arndt
-            Leininger
-          
-    </div>
-
-    <!-- Journal/Book title and date -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="periodical">
-      2025
-    </div>
-    <div class="periodical">
-      
-    </div>
-
-    <!-- Links/Buttons -->
-    <div class="links">
-      
-      
-	    
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    </div>
-    
-      
-      
-      
-      
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-  </div>
-</div>
-</div>
+  <!-- Journal/venue and year --><span class="periodical working-paper">Working paper, 2025</span>
 </div>
 </li>
 </ol>
+        </div>
+      </div>
+    
+      <div class="research-section" id="area-polarization">
+        
+          <div class="cornell-row">
+            <aside class="cornell-margin">What drives polarization?</aside>
+            <div class="cornell-content">
+<p>Citizens across democracies increasingly view political opponents with distrust and hostility. I study how people perceive and experience these divides — examining whether partisan animosity reflects genuine disagreement or distorted perceptions of the other side.</p>
 </div>
+          </div>
+        
+          <div class="cornell-row">
+            <aside class="cornell-margin">How can we measure polarization?</aside>
+            <div class="cornell-content">
+<p>Most work focuses on survey-based methods to understand polarization in the mass public. In work together with Lea Portmann, I study electoral behavior that can help us to understand the context in which de-polarized behavior  takes place.</p>
+</div>
+          </div>
+        
+          <div class="cornell-row">
+            <aside class="cornell-margin">Who (de-)polarizes and why?</aside>
+            <div class="cornell-content">
+<p>Previous work has shown that elites play a powerful role in shaping polarization of ordinary citizens. Building on this, I investigate which type of elites polarize and under which circumstances elites are able to reach out to voters that are ideologically distant.</p>
+</div>
+          </div>
+        
+        <div class="research-publications">
+          <h3 class="relevant-work-header">Relevant work</h3>
+          <h2 class="bibliography">Journal Articles</h2>
+<ol class="bibliography">
+<li>
+<div class="research-pub-entry">
+  <!-- Title -->
+  <span class="title"><a href="https://academic.oup.com/poq/article/87/3/803/7277372" rel="external nofollow noopener" target="_blank">What Do We Measure When We Measure Affective Polarization across Countries?</a></span>
+
+  <!-- Author -->
+  <span class="author"><em>Thomas Tichelbaecker</em>, <a href="https://noamgidron.com/" rel="external nofollow noopener" target="_blank">Noam Gidron</a>, <a href="https://www.rwillhorne.com" rel="external nofollow noopener" target="_blank">Will Horne</a>, and James Adams
+        
+  </span>
+
+  <!-- Journal/venue and year --><span class="periodical"><em>Public Opinion Quarterly</em>, 2023</span>
+</div>
+</li>
+<li>
+<div class="research-pub-entry">
+  <!-- Title -->
+  <span class="title"><a href="https://www.cambridge.org/core/journals/british-journal-of-political-science/article/beyond-observational-relationships-evidence-from-a-tencountry-experiment-that-policy-disputes-cause-affective-polarization/1953ECD3678AD3675793BF06C2479EAF" rel="external nofollow noopener" target="_blank">Beyond Observational Relationships: Evidence from a Ten-country Experiment That Policy Disputes Cause Affective Polarization</a></span>
+
+  <!-- Author -->
+  <span class="author"><a href="https://noamgidron.com/" rel="external nofollow noopener" target="_blank">Noam Gidron</a>, <a href="https://www.rwillhorne.com" rel="external nofollow noopener" target="_blank">Will Horne</a>, <em>Thomas Tichelbaecker</em>, and James Adams
+        
+  </span>
+
+  <!-- Journal/venue and year --><span class="periodical"><em>British Journal of Political Science</em>, 2025</span>
+</div>
+</li>
+</ol>
+<h2 class="bibliography">Books</h2>
+<ol class="bibliography"><li>
+<div class="research-pub-entry">
+  <!-- Title -->
+  <span class="title"><a href="https://www.cambridge.org/core/elements/abs/european-ideological-space-in-voters-own-words/7FC6F6EDBB748454E222E335232E003B" rel="external nofollow noopener" target="_blank">The European Ideological Space in Voters’ Own Words</a></span>
+
+  <!-- Author -->
+  <span class="author"><a href="https://noamgidron.com/" rel="external nofollow noopener" target="_blank">Noam Gidron</a>, and <em>Thomas Tichelbaecker</em>
+  </span>
+
+  <!-- Journal/venue and year --><span class="periodical"><em>Cambridge University Press</em>, 2025</span>
+</div>
+</li></ol>
+        </div>
+      </div>
+    
+      <div class="research-section" id="area-democracy">
+        
+          <div class="cornell-row">
+            <aside class="cornell-margin">What fuels support for extremist actors in liberal democracies?</aside>
+            <div class="cornell-content">
+<p>I study how and when far-right parties are able to attract support in liberal democracies scrutinizing the role of domestic out-migration and gender imbalances. I also try to understand how and when far-right parties can build an increasingly loyal electorate.</p>
+</div>
+          </div>
+        
+          <div class="cornell-row">
+            <aside class="cornell-margin">How do war and violence shape political behavior?</aside>
+            <div class="cornell-content">
+<p>War and political violence leave lasting imprints on democratic politics. I study how exposure to conflict — whether through wartime casualties, political repression, or communal violence — reshapes citizens’ political attitudes and behavior long after the fighting ends. I also study how political violence in established democracies shape the composition of political elites.</p>
+</div>
+          </div>
+        
+          <div class="cornell-row">
+            <aside class="cornell-margin">How can liberal democracies safeguard institutions?</aside>
+            <div class="cornell-content">
+<p>Focusing on the case of Germany, I analyze the tools that militant democracies have already today to their disposal in fending off challenges undermining state institutions. In particular, I focus on how state surveillance and  the threat of disciplinary consequences can deter civil servants to join  extremist parties.</p>
+</div>
+          </div>
+        
+        <div class="research-publications">
+          <h3 class="relevant-work-header">Relevant work</h3>
+          <h2 class="bibliography">Journal Articles</h2>
+<ol class="bibliography">
+<li>
+<div class="research-pub-entry">
+  <!-- Title -->
+  <span class="title"><a href="https://www.cambridge.org/core/journals/american-political-science-review/article/war-and-nationalism-how-ww1-battle-deaths-fueled-civilians-support-for-the-nazi-party/06D9FB5556788A56FE95972CA3CBD3B6#article" rel="external nofollow noopener" target="_blank">War and Nationalism: How WW1 Battle Deaths Fueled Civilians’ Support for the Nazi Party</a></span>
+
+  <!-- Author -->
+  <span class="author"><a href="https://www.alexander-dejuan.de" rel="external nofollow noopener" target="_blank">Alexander De Juan</a>, <a href="https://felixhaass.de" rel="external nofollow noopener" target="_blank">Felix Haass</a>, <a href="https://www.carlokoos.com" rel="external nofollow noopener" target="_blank">Carlo Koos</a>, <a href="https://saschariaz.com" rel="external nofollow noopener" target="_blank">Sascha Riaz</a>, and <em>Thomas Tichelbaecker</em>
+  </span>
+
+  <!-- Journal/venue and year --><span class="periodical"><em>American Political Science Review</em>, 2024</span>
+</div>
+</li>
+<li>
+<div class="research-pub-entry">
+  <!-- Title -->
+  <span class="title"><a href="https://ejpr.onlinelibrary.wiley.com/doi/10.1111/1475-6765.70017" rel="external nofollow noopener" target="_blank">Does Political Violence Undermine Descriptive Representation? The Case of Women in Politics</a></span>
+
+  <!-- Author -->
+  <span class="author"><a href="https://www.jeyhunalizade.com" rel="external nofollow noopener" target="_blank">Jey Alizade</a>, <a href="https://www.fabioellger.com" rel="external nofollow noopener" target="_blank">Fabio Ellger</a>, <a href="https://www.eui.eu/people?id=marius-gruenewald" rel="external nofollow noopener" target="_blank">Marius Grünewald</a>, and <em>Thomas Tichelbaecker</em>
+  </span>
+
+  <!-- Journal/venue and year --><span class="periodical"><em>European Journal of Political Research</em>, 2025</span>
+</div>
+</li>
+</ol>
+<h2 class="bibliography">Work in Progress</h2>
+<ol class="bibliography"><li>
+<div class="research-pub-entry">
+  <!-- Title -->
+  <span class="title">Still competing for loyalists? </span>
+
+  <!-- Author -->
+  <span class="author"><em>Thomas Tichelbaecker</em>, and <a href="https://www.aleininger.eu" rel="external nofollow noopener" target="_blank">Arndt Leininger</a>
+  </span>
+
+  <!-- Journal/venue and year --><span class="periodical working-paper">Working paper, 2025</span>
+</div>
+</li></ol>
+        </div>
+      </div>
+    
+  </article>
+</div>
+
+<script>
+function showArea(area) {
+  document.querySelectorAll('.research-section').forEach(function(el) {
+    el.classList.remove('active');
+  });
+  document.querySelectorAll('.research-card').forEach(function(el) {
+    el.classList.remove('active');
+  });
+  document.getElementById('area-' + area).classList.add('active');
+  document.querySelector('.research-card[data-area="' + area + '"]').classList.add('active');
+  document.querySelector('.post').setAttribute('data-active-area', area);
+}
+
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var area = params.get('area');
+  if (area && document.getElementById('area-' + area)) {
+    showArea(area);
+  } else {
+    document.querySelector('.post').setAttribute('data-active-area', 'elites');
+  }
+})();
+</script>
 
 <style>
-    h3.bibliography{ display:none}
+  .research-areas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
 
-    .publications h2.bibliography {
-        border-top: 1px solid var(--global-divider-color);
-        padding-top: 1rem;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-        text-align: left;
-        color: var(--global-theme-color);
-        font-weight: 500;
-        font-size:1.5rem;
-        flex: 1;
+  @media (max-width: 768px) {
+    .research-areas { grid-template-columns: 1fr; }
+  }
+
+  
+  .post[data-active-area="elites"] { --global-theme-color: #3d5a80; --area-color: #3d5a80; }
+  html[data-theme="dark"] .post[data-active-area="elites"] { --global-theme-color: #7ca5cc; --area-color: #7ca5cc; }
+  .research-card[data-area="elites"] { --card-color: #3d5a80; background-color: color-mix(in srgb, #3d5a80 10%, var(--global-bg-color)); }
+  
+  .post[data-active-area="polarization"] { --global-theme-color: #9b6a3c; --area-color: #9b6a3c; }
+  html[data-theme="dark"] .post[data-active-area="polarization"] { --global-theme-color: #d4a06a; --area-color: #d4a06a; }
+  .research-card[data-area="polarization"] { --card-color: #9b6a3c; background-color: color-mix(in srgb, #9b6a3c 10%, var(--global-bg-color)); }
+  
+  .post[data-active-area="democracy"] { --global-theme-color: #4a7a5a; --area-color: #4a7a5a; }
+  html[data-theme="dark"] .post[data-active-area="democracy"] { --global-theme-color: #7ab88e; --area-color: #7ab88e; }
+  .research-card[data-area="democracy"] { --card-color: #4a7a5a; background-color: color-mix(in srgb, #4a7a5a 10%, var(--global-bg-color)); }
+  
+
+  .research-card {
+    display: block;
+    text-align: left;
+    padding: 1.5rem;
+    border: 1px solid var(--global-divider-color);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--global-text-color);
+    background-color: transparent;
+    cursor: pointer;
+    opacity: 0.55;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .research-card:hover {
+    opacity: 0.85;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .research-card.active {
+    border-color: var(--card-color);
+    background-color: color-mix(in srgb, var(--card-color) 15%, var(--global-bg-color));
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    opacity: 1;
+  }
+
+  .research-card-icon {
+    font-size: 1.5rem;
+    color: var(--card-color, var(--global-theme-color));
+    margin-bottom: 0.75rem;
+  }
+
+  .research-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--global-text-color);
+  }
+
+  .research-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--global-text-color-light);
+    margin-bottom: 0;
+  }
+
+  html.transition .research-card,
+  html.transition .research-card *,
+  html.transition .research-card *:before,
+  html.transition .research-card *:after {
+    transition: none !important;
+  }
+
+  .research-section {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .research-section.active {
+    display: block;
+    background: color-mix(in srgb, var(--area-color) 10%, transparent);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 0 15px 5px color-mix(in srgb, var(--area-color) 20%, transparent);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .research-publications {
+    margin-top: 2rem;
+  }
+
+  .research-publications .relevant-work-header {
+    display: block !important;
+    border-top: 2px solid color-mix(in srgb, var(--area-color) 30%, transparent);
+    padding-top: 1rem;
+    margin-bottom: 1.25rem;
+    color: var(--area-color);
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+
+  .research-publications h2.bibliography,
+  .research-publications h3.bibliography { display: none; }
+
+  .research-publications ol {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .research-publications ol li {
+    margin-bottom: 0.75rem;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .research-publications ol li::before {
+    content: "\2022";
+    color: var(--area-color);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+  }
+
+  .research-pub-entry .title {
+    font-weight: 500;
+  }
+
+  .research-pub-entry .title a {
+    color: var(--global-text-color);
+    text-decoration: none;
+  }
+
+  .research-pub-entry .title a:hover {
+    color: var(--area-color);
+  }
+
+  .research-pub-entry .author {
+    font-size: 0.9rem;
+  }
+
+  .research-pub-entry .periodical {
+    font-size: 0.9rem;
+    color: var(--global-text-color-light);
+  }
+
+  .research-pub-entry .working-paper {
+    font-style: italic;
+  }
+
+  .cornell-row {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    gap: 1.5rem;
+    margin-bottom: 0.25rem;
+    align-items: start;
+  }
+
+  .cornell-margin {
+    font-size: 0.8rem;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--area-color);
+    padding-right: 1rem;
+    padding-top: 0.15rem;
+    border-right: 2px solid color-mix(in srgb, var(--area-color) 30%, transparent);
+  }
+
+  .cornell-content { min-width: 0; }
+  .cornell-content p { margin-bottom: 0; }
+
+  @media (max-width: 768px) {
+    .cornell-row {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+      margin-bottom: 1rem;
     }
 
-.container {
-  display: flex;
-}
-
-.left-column {
-  flex: 1;
-}
-
-.right-column {
-  flex: 7;
-}
-
-
-
+    .cornell-margin {
+      border-right: none;
+      border-left: 2px solid color-mix(in srgb, var(--area-color) 30%, transparent);
+      padding-right: 0;
+      padding-left: 0.75rem;
+    }
+  }
 </style>
-
-
-  </article>
-
-  
-
-  
-</div>
 
       
     </div>
@@ -1237,14 +737,15 @@
       © Copyright 2026
       Thomas
       
-      Tichelbaecker. Powered by Jekyll with al-folio theme.
-
+      Tichelbaecker. 
       
       
     </div>
   </footer>
 
 
+
+    <script>document.documentElement.classList.add('ready');</script>
 
     <!-- JavaScripts -->
     <!-- jQuery -->
@@ -1288,8 +789,8 @@
 
 
 <!-- Load Common JS -->
-<script src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script>
-<script defer src="/assets/js/common.js?b7816bd189846d29eded8745f9c4cf77"></script>
+<script defer src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script>
+<script defer src="/assets/js/common.js?cb0073edefb800e3f4ea70a0559159f5"></script>
 <script defer src="/assets/js/copy_code.js?12775fdf7f95e901d7119054556e495f" type="text/javascript"></script>
 
 <!-- Jupyter Open External Links New Tab -->
@@ -1345,7 +846,7 @@
      * values.
      */
     window.onload = function () {
-      setTimeout(progressBarSetup, 50);
+      progressBarSetup();
     };
     /*
      * We set up the bar according to the browser.
@@ -1376,7 +877,6 @@
 
     function initializeProgressElement() {
       let navbarHeight = $('#navbar').outerHeight(true);
-      $('body').css({ 'padding-top': navbarHeight });
       $('progress-container').css({ 'padding-top': navbarHeight });
       progressBar.css({ top: navbarHeight });
       progressBar.attr({

@@ -1,8 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- Head -->
   <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+    (function() {
+      var t = localStorage.getItem('theme');
+      if (t !== 'dark' && t !== 'light' && t !== 'system') t = 'system';
+      document.documentElement.setAttribute('data-theme-setting', t);
+      var theme = t;
+      if (t === 'system') {
+        theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <!-- Head -->
+  
+    <style>
+      html:not(.ready) body { opacity: 0; }
+      html.ready body { opacity: 1; }
+    </style>
     
     <!-- Metadata, OpenGraph and Schema.org -->
 
@@ -36,6 +53,11 @@
 
 
 
+<!-- Preconnect to CDN origins -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <!-- Bootstrap & MDB -->
 <link rel="stylesheet" href="/assets/css/bootstrap.min.css?a4b3f509e79c54a512b890d73235ef04">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous">
@@ -45,12 +67,31 @@
 
 <!-- Fonts & Icons -->
 <link defer rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5">
-<link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=optional" media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=optional">
+</noscript>
 
 <!-- Code Syntax Highlighting -->
 <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
 
 
+
+<!-- Critical inline styles to prevent navbar flash -->
+<style>
+  body.fixed-top-nav { padding-top: 70px; }
+  #navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    background-color: var(--global-bg-color, #fff);
+  }
+</style>
 
 <!-- Styles -->
 
@@ -58,13 +99,13 @@
 
 
 
-  <link rel="shortcut icon" href="/assets/img/favicon.png?4d0a37639c11d5752cef8985880e5706">
+  <link rel="shortcut icon" href="/assets/img/favicon.svg?67ae1db9bae9dba3a3718dfdcb3bff31">
 
 <link rel="stylesheet" href="/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
 <link rel="canonical" href="https://tichelbaecker.com/dissertation/">
 
 <!-- Dark Mode -->
-<script src="/assets/js/theme.js?a5ca4084d3b81624bcfa01156dae2b8e"></script>
+<script src="/assets/js/theme.js?37d4efda7bace3cd5e5e37effbfd57a8"></script>
 
   <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark">
   <script>
@@ -82,10 +123,11 @@
 
 
 
-  </head>
+  
 
   <!-- Body -->
-  <body class="fixed-top-nav ">
+  </head>
+<body class="fixed-top-nav ">
     <!-- Header -->
     <header>
   <!-- Nav Bar -->
@@ -94,9 +136,7 @@
       
         <a class="navbar-brand title font-weight-lighter" href="/">
           
-            
-              <span class="font-weight-bold">Thomas</span>
-            
+            Thomas
             
             Tichelbaecker
           
@@ -137,76 +177,6 @@
             
           
             
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
               
                 <li class="nav-item ">
                   
@@ -217,6 +187,15 @@
               
             
           
+            
+              
+                <li class="nav-item ">
+                  
+                  <a class="nav-link" href="/publications/">Publications
+                    
+                  </a>
+                </li>
+              
             
           
             
@@ -243,10 +222,6 @@
                   </a>
                 </li>
               
-            
-          
-            
-          
             
           
           
@@ -303,14 +278,15 @@
       © Copyright 2026
       Thomas
       
-      Tichelbaecker. Powered by Jekyll with al-folio theme.
-
+      Tichelbaecker. 
       
       
     </div>
   </footer>
 
 
+
+    <script>document.documentElement.classList.add('ready');</script>
 
     <!-- JavaScripts -->
     <!-- jQuery -->
@@ -354,8 +330,8 @@
 
 
 <!-- Load Common JS -->
-<script src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script>
-<script defer src="/assets/js/common.js?b7816bd189846d29eded8745f9c4cf77"></script>
+<script defer src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script>
+<script defer src="/assets/js/common.js?cb0073edefb800e3f4ea70a0559159f5"></script>
 <script defer src="/assets/js/copy_code.js?12775fdf7f95e901d7119054556e495f" type="text/javascript"></script>
 
 <!-- Jupyter Open External Links New Tab -->
@@ -411,7 +387,7 @@
      * values.
      */
     window.onload = function () {
-      setTimeout(progressBarSetup, 50);
+      progressBarSetup();
     };
     /*
      * We set up the bar according to the browser.
@@ -442,7 +418,6 @@
 
     function initializeProgressElement() {
       let navbarHeight = $('#navbar').outerHeight(true);
-      $('body').css({ 'padding-top': navbarHeight });
       $('progress-container').css({ 'padding-top': navbarHeight });
       progressBar.css({ top: navbarHeight });
       progressBar.attr({
