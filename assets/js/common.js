@@ -1,20 +1,24 @@
 $(document).ready(function () {
   // add toggle functionality to abstract, award and bibtex buttons
-  $("a.abstract").click(function () {
-    $(this).parent().parent().find(".abstract.hidden").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden.open").toggleClass("open");
-  });
-  $("a.award").click(function () {
-    $(this).parent().parent().find(".abstract.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden.open").toggleClass("open");
-  });
-  $("a.bibtex").click(function () {
-    $(this).parent().parent().find(".abstract.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden").toggleClass("open");
-  });
+  function togglePanel(clicked, targetClass) {
+    var container = $(clicked).closest("[id]");
+    var target = container.find("." + targetClass + ".hidden");
+    var others = container.find(".hidden.open").not(target);
+
+    // Instantly hide others (no transition)
+    others.css("transition", "none");
+    others.removeClass("open");
+    // Force reflow so the instant hide takes effect
+    others[0] && others[0].offsetHeight;
+    others.css("transition", "");
+
+    // Toggle the clicked panel
+    target.toggleClass("open");
+  }
+
+  $("a.abstract").click(function () { togglePanel(this, "abstract"); });
+  $("a.award").click(function () { togglePanel(this, "award"); });
+  $("a.bibtex").click(function () { togglePanel(this, "bibtex"); });
   $("a").removeClass("waves-effect waves-light");
 
   // bootstrap-toc

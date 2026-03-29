@@ -222,7 +222,12 @@ let determineComputedTheme = () => {
 let initTheme = () => {
   let themeSetting = determineThemeSetting();
 
-  setThemeSetting(themeSetting);
+  // Apply theme without transition on initial load
+  let theme = determineComputedTheme();
+  setHighlight(theme);
+  document.documentElement.setAttribute("data-theme", theme);
+  document.documentElement.setAttribute("data-theme-setting", themeSetting);
+  localStorage.setItem("theme", themeSetting);
 
   // Add event listener to the theme toggle button.
   document.addEventListener("DOMContentLoaded", function () {
