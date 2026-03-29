@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-
-Sitemap: https://tichelbaecker.com/sitemap.xml
